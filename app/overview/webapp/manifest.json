@@ -1,0 +1,209 @@
+{
+    "_version": "1.58.0",
+    "sap.app": {
+        "id": "ov.overview",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:ovp",
+            "version": "1.11.2",
+            "toolsId": "2eb8dcac-916e-4ea5-9a7c-f13639b813c7"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/odata/v4/catalog/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "ovoverview-display": {
+                    "semanticObject": "ovoverview",
+                    "action": "display",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    }
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.119.1",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+                "sap.fe.templates": {},
+                "sap.ovp": {},
+                "sap.ui.rta": {},
+                "sap.ui.layout": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "ov.overview.i18n.i18n"
+                }
+            },
+            "mainModel": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {},
+            "routes": [],
+            "targets": {}
+        }
+    },
+    "sap.ovp": {
+        "globalFilterModel": "mainModel",
+        "globalFilterEntityType": "",
+        "containerLayout": "resizable",
+        "enableLiveFilter": true,
+        "considerAnalyticalParameters": false,
+        "cards": {
+            "list01": {
+                "model": "mainModel",
+                "template": "sap.ovp.cards.v4.list",
+                "settings": {
+                    "title": "Total Payable",
+                    "entitySet": "Overview_page_1",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#total_payable"
+                },
+                "sequencePos": 1
+            },
+            "list02": {
+                "model": "mainModel",
+                "template": "sap.ovp.cards.v4.list",
+                "settings": {
+                    "title": "Current Payable",
+                    "entitySet": "Overview_page_1",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#current_payable"
+                },
+                "sequencePos": 2
+            },
+            "list03": {
+                "model": "mainModel",
+                "template": "sap.ovp.cards.v4.list",
+                "settings": {
+                    "title": "Overdue",
+                    "entitySet": "Overview_page_1",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#over_due_amount"
+                },
+                "sequencePos": 4
+            },
+            "list04": {
+                "model": "mainModel",
+                "template": "sap.ovp.cards.v4.list",
+                "settings": {
+                    "title": "Payable",
+                    "entitySet": "Overview_page_1",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#payable"
+                }
+            },
+            "ljtable01": {
+                "model": "mainModel",
+                "template": "sap.ovp.cards.v4.table",
+                "settings": {
+                    "title": "My Task",
+                    "entitySet": "MyTask",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#mytask",
+                    "defaultSpan": {
+                        "cols": 5,
+                        "rows": 4
+                    }
+                }
+            },
+            "lzchart01": {
+                "model": "mainModel",
+                "template": "sap.ovp.cards.v4.charts.analytical",
+                "settings": {
+                    "title": "Invoice Overview",
+                    "entitySet": "Invoice_overviewchart_1",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Invoice_overviewchart_1",
+                    "defaultSpan": {
+                        "cols": 2
+                    },
+                    "ignoreSapText": true
+                },
+                "sequencePos": 3
+            },
+            "lzchart02": {
+                "model": "mainModel",
+                "template": "sap.ovp.cards.v4.charts.analytical",
+                "settings": {
+                    "title": "Total Accounts Payable",
+                    "entitySet": "AccountPayable_1",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#AccountPayable_1",
+                    "defaultSpan": {
+                        "cols": 2
+                    }
+                }
+            }
+        },
+        "globalFilterControlType": ""
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "analytical"
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "mgdappreport"
+    }
+}

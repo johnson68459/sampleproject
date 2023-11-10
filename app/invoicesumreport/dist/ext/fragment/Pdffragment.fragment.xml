@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:macros="sap.fe.macros">
+	<PDFViewer
+            id="pdfViewer"
+            source="{pdfModel>/pdfUrl}"
+            width="120%"
+            height="400px" />
+</core:FragmentDefinition>

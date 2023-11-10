@@ -1,0 +1,5 @@
+id;vendor_no;company_code;currency;overdue_flag;total_amount;total_amt_paid;total_due_amount;total_no_of_invoice;total_no_of_invoice_due;total_no_of_invoice_due_crossed;total_no_of_invoice_paid;total_no_of_paid_invoice;total_over_due_amount;total_paid_amount;vendor_name
+"1";"V1001";"CC001";"USD";"No";"5000";"4000";"1000";"50";"30";"20";"950";"50";"500";"3500";"Vendor A"
+"2";"V1002";"CC002";"EUR";"Yes";"7500";"6000";"1500";"75";"40";"35";"1400";"75";"700";"5000";"Vendor B"
+"3";"V1003";"CC003";"GBP";"No";"3000";"2500";"500";"25";"10";"15";"475";"25";"250";"2000";"Vendor C"
+"4";"V1004";"CC001";"USD";"Yes";"6500";"5000";"1500";"65";"35";"30";"1450";"70";"600";"4000";"Vendor D"

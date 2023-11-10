@@ -1,0 +1,277 @@
+_schema-version: "3.1"
+ID: eliporeports
+description: A simple CAP project.
+version: 1.0.0
+modules:
+- name: eliporeports-srv
+  type: nodejs
+  path: gen/srv
+  requires:
+  - name: eliporeports-db
+  - name: uaa_eliporeports
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+  build-parameters:
+    builder: npm
+- name: eliporeports-db-deployer
+  type: hdb
+  path: gen/db
+  requires:
+  - name: eliporeports-db
+  parameters:
+    buildpack: nodejs_buildpack
+- name: eliporeports-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: eliporeports-destination-service
+    parameters:
+      content-target: true
+  - name: eliporeports_html_repo_host
+    parameters:
+      service-key:
+        name: eliporeports_html_repo_host-key
+  - name: uaa_eliporeports
+    parameters:
+      service-key:
+        name: uaa_eliporeports-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: mgdappreport_eliporeports_html_repo_host
+          ServiceInstanceName: eliporeports-html5-app-host-service
+          ServiceKeyName: eliporeports_html_repo_host-key
+          sap.cloud.service: mgdappreport
+        - Authentication: OAuth2UserTokenExchange
+          Name: mgdappreport_uaa_eliporeports
+          ServiceInstanceName: eliporeports-xsuaa-service
+          ServiceKeyName: uaa_eliporeports-key
+          sap.cloud.service: mgdappreport
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: eliporeports-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: eliporeports_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - myliability.zip
+      name: myliability
+      target-path: resources/
+    - artifacts:
+      - myliabilitychart.zip
+      name: myliabilitychart
+      target-path: resources/
+    - artifacts:
+      - ovoverview.zip
+      name: ovoverview
+      target-path: resources/
+    - artifacts:
+      - reinvoicechart.zip
+      name: reinvoicechart
+      target-path: resources/
+    - artifacts:
+      - reagingreport.zip
+      name: reagingreport
+      target-path: resources/
+    - artifacts:
+      - reagingchart.zip
+      name: reagingchart
+      target-path: resources/
+    - artifacts:
+      - reproductivityreport.zip
+      name: reproductivityreport
+      target-path: resources/
+    - artifacts:
+      - reproductivitychart.zip
+      name: reproductivitychart
+      target-path: resources/
+    - artifacts:
+      - rekeyprocessanalyreport.zip
+      name: rekeyprocessanalyreport
+      target-path: resources/
+    - artifacts:
+      - rekeyprocesschart.zip
+      name: rekeyprocesschart
+      target-path: resources/
+    - artifacts:
+      - reinvoicesumreport.zip
+      name: reinvoicesumreport
+      target-path: resources/
+- name: myliability
+  type: html5
+  path: app/liability
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: myliabilitychart
+  type: html5
+  path: app/liabilitychart
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: ovoverview
+  type: html5
+  path: app/overview
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: reinvoicechart
+  type: html5
+  path: app/invoicechart
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: reagingreport
+  type: html5
+  path: app/agingreport
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: reagingchart
+  type: html5
+  path: app/agingchart
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: reproductivityreport
+  type: html5
+  path: app/productivityreport
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: reproductivitychart
+  type: html5
+  path: app/productivitychart
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: rekeyprocessanalyreport
+  type: html5
+  path: app/keyprocessanalyreport
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: rekeyprocesschart
+  type: html5
+  path: app/keyprocesschart
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: reinvoicesumreport
+  type: html5
+  path: app/invoicesumreport
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: eliporeports-db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service: hana
+    service-plan: hdi-shared
+- name: eliporeports-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          - Authentication: NoAuthentication
+            HTML5.DynamicDestination: true
+            HTML5.ForwardAuthToken: true
+            Name: eliporeports-srv-api
+            ProxyType: Internet
+            Type: HTTP
+            URL: ~{srv-api/srv-url}
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: eliporeports-destination-service
+    service-plan: lite
+  requires:
+  - name: srv-api
+- name: eliporeports_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: eliporeports-html5-app-host-service
+    service-plan: app-host
+- name: uaa_eliporeports
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      tenant-mode: dedicated
+      xsappname: eliporeports
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: eliporeports-xsuaa-service
+    service-plan: application
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+  - builder: custom
+    commands:
+    - npx cds build --production

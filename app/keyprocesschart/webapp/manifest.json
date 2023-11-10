@@ -1,0 +1,191 @@
+{
+  "_version": "1.58.0",
+  "sap.app": {
+    "id": "re.keyprocesschart",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:ovp",
+      "version": "1.11.2",
+      "toolsId": "23481514-3d94-4acc-b614-04faba157ddc"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/catalog/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "keyprocesschartsob-keyprocesschartact": {
+          "semanticObject": "keyprocesschartsob",
+          "action": "keyprocesschartact",
+          "title": "{{flpTitle}}",
+          "subTitle": "{{flpSubtitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.119.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {},
+        "sap.ovp": {},
+        "sap.ui.rta": {},
+        "sap.ui.layout": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "re.keyprocesschart.i18n.i18n"
+        }
+      },
+      "mainModel": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [],
+      "targets": {}
+    }
+  },
+  "sap.ovp": {
+    "globalFilterModel": "mainModel",
+    "globalFilterEntityType": "",
+    "containerLayout": "resizable",
+    "enableLiveFilter": true,
+    "considerAnalyticalParameters": false,
+    "chartSettings": {
+      "showDataLabel": true
+    },
+    "cards": {
+      "chart02": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.v4.charts.analytical",
+        "settings": {
+          "title": "Total Accounts Payable",
+          "entitySet": "key_TotalAccountsPayable_1",
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#key_TotalAccountsPayable_1",
+          "defaultSpan": {
+            "cols": 2,
+            "rows": 2
+          }
+        }
+      },
+      "chart03": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.v4.charts.analytical",
+        "settings": {
+          "title": "Total Liabilities",
+          "entitySet": "Total_liabilities_2",
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Total_liabilities_2",
+          "defaultSpan": {
+            "cols": 2,
+            "rows": 2
+          }
+        }
+      },
+      "chart04": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.v4.charts.analytical",
+        "settings": {
+          "title": "Processed and Inprocess Invoices",
+          "entitySet": "Processed_InProcessing_1",
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Processed_InProcessing_1",
+          "defaultSpan": {
+            "cols": 4,
+            "rows": 2
+          }
+        }
+      },
+      "chart14": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.v4.charts.analytical",
+        "settings": {
+          "title": "Oct-Nov-Dec",
+          "entitySet": "Oct_Nov_Dec",
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Oct_Nov_Dec"
+        }
+      },
+      "chart15": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.v4.charts.analytical",
+        "settings": {
+          "title": "Jan_Feb_Mar",
+          "entitySet": "Jan_Feb_Mar",
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Jan_Feb_Mar",
+          "defaultSpan": {
+            "cols": 4,
+            "rows": 2
+          }
+        }
+      }
+    },
+    "globalFilterControlType": ""
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "analytical"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "mgdappreport"
+  }
+}

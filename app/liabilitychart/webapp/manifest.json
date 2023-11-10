@@ -1,0 +1,170 @@
+{
+    "_version": "1.58.0",
+    "sap.app": {
+        "id": "my.liabilitychart",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:ovp",
+            "version": "1.11.2",
+            "toolsId": "2b024dc5-218d-4057-9c8e-6d770a4043b4"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/odata/v4/catalog/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "liabilitychart-liabilitychartact": {
+                    "semanticObject": "liabilitychartsob",
+                    "action": "liabilitychartact",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    }
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.119.1",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+                "sap.fe.templates": {},
+                "sap.ovp": {},
+                "sap.ui.rta": {},
+                "sap.ui.layout": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "my.liabilitychart.i18n.i18n"
+                }
+            },
+            "mainModel": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "routing": {
+            "config": {},
+            "routes": [],
+            "targets": {}
+        }
+    },
+    "sap.ovp": {
+        "globalFilterModel": "mainModel",
+        "globalFilterEntityType": "LiabilityBasedOnAmount_1",
+        "containerLayout": "resizable",
+        "enableLiveFilter": true,
+        "considerAnalyticalParameters": false,
+        "chartSettings": {
+            "showDataLabel": true
+        },
+        "cards": {
+            "chart05": {
+                "model": "mainModel",
+                "template": "sap.ovp.cards.v4.charts.analytical",
+                "settings": {
+                    "title": "Liability Based On Amount",
+                    "entitySet": "LiabilityBasedOnAmount_1",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#LiabilityBasedOnAmount_1",
+                    "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionFields",
+                    "defaultSpan": {
+                        "cols": 2,
+                        "rows": 2
+                    }
+                }
+            },
+            "chart06": {
+                "model": "mainModel",
+                "template": "sap.ovp.cards.v4.charts.analytical",
+                "settings": {
+                    "title": "Total Accounts Payable",
+                    "entitySet": "TotalAccountsPayable_1",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#TotalAccountsPayable_1",
+                    "defaultSpan": {
+                        "cols": 2,
+                        "rows": 2
+                    }
+                }
+            },
+            "chart07": {
+                "model": "mainModel",
+                "template": "sap.ovp.cards.v4.charts.analytical",
+                "settings": {
+                    "title": "Vendor Liability Report for Company Code",
+                    "entitySet": "VendorLiabilityReportforCompanyCode_1",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#VendorLiabilityReportforCompanyCode_1",
+                    "defaultSpan": {
+                        "cols": 4,
+                        "rows": 3
+                    }
+                }
+            }
+        },
+        "globalFilterControlType": "MacroFilterBar"
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "analytical"
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "mgdappreport"
+    }
+}

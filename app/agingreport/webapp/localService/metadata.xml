@@ -1,0 +1,937 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Aggregation.V1.xml">
+        <edmx:Include Alias="Aggregation" Namespace="Org.OData.Aggregation.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Analytics.xml">
+        <edmx:Include Alias="Analytics" Namespace="com.sap.vocabularies.Analytics.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="CatalogService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Invoice" EntityType="CatalogService.Invoice">
+                    <NavigationPropertyBinding Path="invoice_child_items" Target="Invoice_child_items"/>
+                    <NavigationPropertyBinding Path="approvers" Target="Approvers"/>
+                    <NavigationPropertyBinding Path="inner_approvers" Target="InvoiceApprover"/>
+                </EntitySet>
+                <EntitySet Name="Invoice_child_items" EntityType="CatalogService.Invoice_child_items">
+                    <NavigationPropertyBinding Path="invoice" Target="Invoice"/>
+                </EntitySet>
+                <EntitySet Name="InvoiceApprover" EntityType="CatalogService.InvoiceApprover">
+                    <NavigationPropertyBinding Path="invoice" Target="Invoice"/>
+                </EntitySet>
+                <EntitySet Name="Approvers" EntityType="CatalogService.Approvers">
+                    <NavigationPropertyBinding Path="toInvoice" Target="Invoice"/>
+                </EntitySet>
+                <EntitySet Name="Invoice_overviewchart_1" EntityType="CatalogService.Invoice_overviewchart_1"/>
+                <EntitySet Name="AccountPayable_1" EntityType="CatalogService.AccountPayable_1"/>
+                <EntitySet Name="Liability" EntityType="CatalogService.Liability"/>
+                <EntitySet Name="Tableyears" EntityType="CatalogService.Tableyears"/>
+                <EntitySet Name="LiabilityBasedOnAmount_1" EntityType="CatalogService.LiabilityBasedOnAmount_1"/>
+                <EntitySet Name="TotalAccountsPayable_1" EntityType="CatalogService.TotalAccountsPayable_1"/>
+                <EntitySet Name="VendorLiabilityReportforCompanyCode_1" EntityType="CatalogService.VendorLiabilityReportforCompanyCode_1"/>
+                <EntitySet Name="Aging" EntityType="CatalogService.Aging"/>
+                <EntitySet Name="Aging_aggregate" EntityType="CatalogService.Aging_aggregate"/>
+                <EntitySet Name="Aging_bsd_comp_1" EntityType="CatalogService.Aging_bsd_comp_1"/>
+                <EntitySet Name="Processed_InProcessing_1" EntityType="CatalogService.Processed_InProcessing_1"/>
+                <EntitySet Name="Total_liabilities_1" EntityType="CatalogService.Total_liabilities_1"/>
+                <EntitySet Name="key_TotalAccountsPayable_1" EntityType="CatalogService.key_TotalAccountsPayable_1"/>
+                <EntitySet Name="Vendors" EntityType="CatalogService.Vendors"/>
+                <EntitySet Name="Productivity" EntityType="CatalogService.Productivity"/>
+                <EntitySet Name="ProductivityReportOverview_1" EntityType="CatalogService.ProductivityReportOverview_1"/>
+                <EntitySet Name="ProductivityReportOverview_2" EntityType="CatalogService.ProductivityReportOverview_2"/>
+                <EntitySet Name="Overview_page" EntityType="CatalogService.Overview_page"/>
+                <EntitySet Name="Overview_page_1" EntityType="CatalogService.Overview_page_1"/>
+                <EntitySet Name="MyTask" EntityType="CatalogService.MyTask"/>
+            </EntityContainer>
+            <EntityType Name="Invoice">
+                <Key>
+                    <PropertyRef Name="invoice_no"/>
+                </Key>
+                <Property Name="invoice_no" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="amount" Type="Edm.Decimal" Scale="2" Precision="15"/>
+                <Property Name="amount_overdue" Type="Edm.Decimal" Scale="2" Precision="15"/>
+                <Property Name="company_code" Type="Edm.String" MaxLength="4"/>
+                <Property Name="currency" Type="Edm.String" MaxLength="3"/>
+                <Property Name="days_overdue" Type="Edm.Int32"/>
+                <Property Name="days_to_due" Type="Edm.Int32"/>
+                <Property Name="document_status" Type="Edm.String" MaxLength="10"/>
+                <Property Name="document_type" Type="Edm.String" MaxLength="10"/>
+                <Property Name="due_date" Type="Edm.String" MaxLength="10"/>
+                <Property Name="end_date" Type="Edm.String" MaxLength="10"/>
+                <Property Name="end_time" Type="Edm.String" MaxLength="12"/>
+                <Property Name="entry_date" Type="Edm.String" MaxLength="10"/>
+                <Property Name="entry_time" Type="Edm.String" MaxLength="12"/>
+                <Property Name="invoice_date" Type="Edm.String" MaxLength="10"/>
+                <Property Name="npo_flag" Type="Edm.String" MaxLength="1"/>
+                <Property Name="number_of_approvers" Type="Edm.Int32"/>
+                <Property Name="overdue_flag" Type="Edm.String" MaxLength="1"/>
+                <Property Name="payment_status" Type="Edm.String" MaxLength="10"/>
+                <Property Name="payment_terms" Type="Edm.String" MaxLength="10"/>
+                <Property Name="process_duration" Type="Edm.Int32"/>
+                <Property Name="reason_text" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ref_po_num" Type="Edm.String" MaxLength="20"/>
+                <Property Name="update_date" Type="Edm.String" MaxLength="10"/>
+                <Property Name="update_time" Type="Edm.String" MaxLength="12"/>
+                <Property Name="user_processing" Type="Edm.String" MaxLength="255"/>
+                <Property Name="vendor_name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="vendor_no" Type="Edm.Int32"/>
+                <Property Name="adjustment" Type="Edm.String" MaxLength="255"/>
+                <Property Name="app_comment" Type="Edm.String" MaxLength="255"/>
+                <Property Name="approver_comments" Type="Edm.String" MaxLength="255"/>
+                <Property Name="approver_id" Type="Edm.String" MaxLength="255"/>
+                <Property Name="baseline_date" Type="Edm.String" MaxLength="10"/>
+                <Property Name="business_area" Type="Edm.String" MaxLength="255"/>
+                <Property Name="cgst_tot_amt" Type="Edm.Decimal" Scale="2" Precision="15"/>
+                <Property Name="cost_center" Type="Edm.String" MaxLength="10"/>
+                <Property Name="country" Type="Edm.String" MaxLength="255"/>
+                <Property Name="department_id" Type="Edm.String" MaxLength="10"/>
+                <Property Name="department_name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="discount_per" Type="Edm.Decimal" Scale="2" Precision="5"/>
+                <Property Name="doc_type_desc" Type="Edm.String" MaxLength="255"/>
+                <Property Name="from_supplier" Type="Edm.String" MaxLength="255"/>
+                <Property Name="gl_account" Type="Edm.Int32"/>
+                <Property Name="gstin" Type="Edm.String" MaxLength="15"/>
+                <Property Name="igst_tot_amt" Type="Edm.Decimal" Scale="2" Precision="15"/>
+                <Property Name="in_status" Type="Edm.String" MaxLength="10"/>
+                <Property Name="internal_order" Type="Edm.String" MaxLength="20"/>
+                <Property Name="irn" Type="Edm.String" MaxLength="20"/>
+                <Property Name="is_igst" Type="Edm.String" MaxLength="1"/>
+                <Property Name="modified_date" Type="Edm.String" MaxLength="24"/>
+                <Property Name="npo" Type="Edm.String" MaxLength="1"/>
+                <Property Name="payment_method" Type="Edm.String" MaxLength="1"/>
+                <Property Name="posting_date" Type="Edm.String" MaxLength="10"/>
+                <Property Name="sap_invoice_no" Type="Edm.String" MaxLength="20"/>
+                <Property Name="sgst_tot_amt" Type="Edm.Decimal" Scale="2" Precision="15"/>
+                <Property Name="supplier_comments" Type="Edm.String" MaxLength="255"/>
+                <Property Name="supplier_id" Type="Edm.Int32"/>
+                <Property Name="supplier_name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="tax_per" Type="Edm.Decimal" Scale="2" Precision="5"/>
+                <Property Name="taxable_amount" Type="Edm.Decimal" Scale="2" Precision="15"/>
+                <Property Name="tcs" Type="Edm.Decimal" Scale="2" Precision="15"/>
+                <Property Name="tds_per" Type="Edm.Decimal" Scale="2" Precision="5"/>
+                <Property Name="tds_tot_amt" Type="Edm.Decimal" Scale="2" Precision="15"/>
+                <Property Name="total_discount_amount" Type="Edm.Decimal" Scale="2" Precision="15"/>
+                <Property Name="user_invoice_id" Type="Edm.String" MaxLength="20"/>
+                <Property Name="file_link" Type="Edm.String"/>
+                <NavigationProperty Name="invoice_child_items" Type="Collection(CatalogService.Invoice_child_items)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="approvers" Type="Collection(CatalogService.Approvers)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="inner_approvers" Type="Collection(CatalogService.InvoiceApprover)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Invoice_child_items">
+                <Key>
+                    <PropertyRef Name="invoice_no"/>
+                    <PropertyRef Name="item_no"/>
+                </Key>
+                <Property Name="invoice_no" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="amount" Type="Edm.Int32"/>
+                <Property Name="amt_per_unit" Type="Edm.Int32"/>
+                <Property Name="cgst_amount" Type="Edm.String"/>
+                <Property Name="cgst_per" Type="Edm.String"/>
+                <Property Name="cost_center" Type="Edm.String"/>
+                <Property Name="currency" Type="Edm.String"/>
+                <Property Name="discount" Type="Edm.String"/>
+                <Property Name="discount_amount" Type="Edm.Int32"/>
+                <Property Name="ebelp" Type="Edm.String"/>
+                <Property Name="gl_account" Type="Edm.Int32"/>
+                <Property Name="gross_amount" Type="Edm.String"/>
+                <Property Name="gst_per" Type="Edm.String"/>
+                <Property Name="gst_amt" Type="Edm.String"/>
+                <Property Name="hsn_code" Type="Edm.String"/>
+                <Property Name="igst_amount" Type="Edm.String"/>
+                <Property Name="igst_per" Type="Edm.String"/>
+                <Property Name="item_no" Type="Edm.String" Nullable="false"/>
+                <Property Name="material" Type="Edm.String"/>
+                <Property Name="material_desc" Type="Edm.String"/>
+                <Property Name="ocr_matched" Type="Edm.String"/>
+                <Property Name="plant" Type="Edm.String"/>
+                <Property Name="qc_check" Type="Edm.String"/>
+                <Property Name="quantity" Type="Edm.Int32"/>
+                <Property Name="ref_po_no" Type="Edm.String"/>
+                <Property Name="sgst_amount" Type="Edm.String"/>
+                <Property Name="sgst_per" Type="Edm.String"/>
+                <Property Name="tax_code" Type="Edm.String"/>
+                <Property Name="tax_value_amount" Type="Edm.String"/>
+                <Property Name="taxable_amount" Type="Edm.String"/>
+                <Property Name="total_amt_item" Type="Edm.String"/>
+                <Property Name="unit" Type="Edm.String"/>
+                <NavigationProperty Name="invoice" Type="CatalogService.Invoice">
+                    <ReferentialConstraint Property="invoice_no" ReferencedProperty="invoice_no"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="InvoiceApprover">
+                <Key>
+                    <PropertyRef Name="member_id"/>
+                    <PropertyRef Name="invoice_no"/>
+                </Key>
+                <Property Name="member_id" Type="Edm.String" Nullable="false"/>
+                <Property Name="invoice_no" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="approved_date" Type="Edm.String"/>
+                <Property Name="member_name" Type="Edm.String"/>
+                <NavigationProperty Name="invoice" Type="CatalogService.Invoice">
+                    <ReferentialConstraint Property="invoice_no" ReferencedProperty="invoice_no"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Approvers">
+                <Key>
+                    <PropertyRef Name="invoice_no"/>
+                    <PropertyRef Name="approver"/>
+                </Key>
+                <Property Name="invoice_no" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="approver" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="isapproved" Type="Edm.String" MaxLength="100"/>
+                <Property Name="isgroup" Type="Edm.String" MaxLength="5"/>
+                <Property Name="level" Type="Edm.Int32"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+                <NavigationProperty Name="toInvoice" Type="CatalogService.Invoice">
+                    <ReferentialConstraint Property="toInvoice_invoice_no" ReferencedProperty="invoice_no"/>
+                </NavigationProperty>
+                <Property Name="toInvoice_invoice_no" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="Invoice_overviewchart_1">
+                <Property Name="chartDimension" Type="Edm.String"/>
+                <Property Name="chartMeasure" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="AccountPayable_1">
+                <Property Name="chartDimension" Type="Edm.String"/>
+                <Property Name="chartMeasure" Type="Edm.Decimal" Scale="2" Precision="15"/>
+            </EntityType>
+            <EntityType Name="Liability">
+                <Key>
+                    <PropertyRef Name="id"/>
+                </Key>
+                <Property Name="id" Type="Edm.String" Nullable="false"/>
+                <Property Name="vendor_no" Type="Edm.String"/>
+                <Property Name="company_code" Type="Edm.String"/>
+                <Property Name="currency" Type="Edm.String"/>
+                <Property Name="overdue_flag" Type="Edm.String"/>
+                <Property Name="total_amount" Type="Edm.String"/>
+                <Property Name="total_amt_paid" Type="Edm.String"/>
+                <Property Name="total_due_amount" Type="Edm.String"/>
+                <Property Name="total_no_of_invoice" Type="Edm.String"/>
+                <Property Name="total_no_of_invoice_due" Type="Edm.String"/>
+                <Property Name="total_no_of_invoice_due_crossed" Type="Edm.String"/>
+                <Property Name="total_no_of_invoice_paid" Type="Edm.String"/>
+                <Property Name="total_no_of_paid_invoice" Type="Edm.String"/>
+                <Property Name="total_over_due_amount" Type="Edm.String"/>
+                <Property Name="total_paid_amount" Type="Edm.String"/>
+                <Property Name="vendor_name" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Tableyears">
+                <Key>
+                    <PropertyRef Name="year"/>
+                </Key>
+                <Property Name="year" Type="Edm.String" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="LiabilityBasedOnAmount_1">
+                <Key>
+                    <PropertyRef Name="id"/>
+                </Key>
+                <Property Name="id" Type="Edm.String" Nullable="false"/>
+                <Property Name="chartDimension" Type="Edm.String"/>
+                <Property Name="chartMeasure" Type="Edm.Decimal" Scale="2" Precision="15"/>
+                <Property Name="years" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="TotalAccountsPayable_1">
+                <Key>
+                    <PropertyRef Name="id"/>
+                </Key>
+                <Property Name="id" Type="Edm.String" Nullable="false"/>
+                <Property Name="chartDimension" Type="Edm.String"/>
+                <Property Name="chartMeasure" Type="Edm.Decimal" Scale="2" Precision="15" DefaultValue="0"/>
+                <Property Name="years" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="VendorLiabilityReportforCompanyCode_1">
+                <Key>
+                    <PropertyRef Name="id"/>
+                </Key>
+                <Property Name="id" Type="Edm.String" Nullable="false"/>
+                <Property Name="due_amount" Type="Edm.Decimal" Scale="2" Precision="15"/>
+                <Property Name="overdue_amount" Type="Edm.Decimal" Scale="2" Precision="15"/>
+                <Property Name="processed_amount" Type="Edm.Decimal" Scale="2" Precision="15"/>
+                <Property Name="total_amount" Type="Edm.Decimal" Scale="2" Precision="15"/>
+                <Property Name="vendor_name" Type="Edm.String"/>
+                <Property Name="vendor_no" Type="Edm.String"/>
+                <Property Name="years" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Aging">
+                <Key>
+                    <PropertyRef Name="invoice_no"/>
+                </Key>
+                <Property Name="amount_due" Type="Edm.String"/>
+                <Property Name="date" Type="Edm.String"/>
+                <Property Name="days_outstanding" Type="Edm.String"/>
+                <Property Name="flag" Type="Edm.String"/>
+                <Property Name="invoice_0_to_30" Type="Edm.String"/>
+                <Property Name="invoice_31_to_60" Type="Edm.String"/>
+                <Property Name="invoice_61_to_90" Type="Edm.String"/>
+                <Property Name="invoice_91_or_more" Type="Edm.String"/>
+                <Property Name="invoice_no" Type="Edm.String" Nullable="false"/>
+                <Property Name="vendor_name" Type="Edm.String"/>
+                <Property Name="vendor_no" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Aging_aggregate">
+                <Key>
+                    <PropertyRef Name="id"/>
+                </Key>
+                <Property Name="id" Type="Edm.String" Nullable="false"/>
+                <Property Name="invoice_0_to_30" Type="Edm.String"/>
+                <Property Name="invoice_31_to_60" Type="Edm.String"/>
+                <Property Name="invoice_61_to_90" Type="Edm.String"/>
+                <Property Name="invoice_91_or_more" Type="Edm.String"/>
+                <Property Name="invoice_no" Type="Edm.String"/>
+                <Property Name="vendor_name" Type="Edm.String"/>
+                <Property Name="vendor_no" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Aging_bsd_comp_1">
+                <Key>
+                    <PropertyRef Name="cocd1000"/>
+                </Key>
+                <Property Name="cocd1000" Type="Edm.String" Nullable="false"/>
+                <Property Name="_0_to_30_days" Type="Edm.Int32"/>
+                <Property Name="_31_to_60_days" Type="Edm.Int32"/>
+                <Property Name="_61_to_90_days" Type="Edm.Int32"/>
+                <Property Name="d_gt_90" Type="Edm.Int32"/>
+                <Property Name="company_code" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Processed_InProcessing_1">
+                <Property Name="progress" Type="Edm.String"/>
+                <Property Name="po" Type="Edm.Int32"/>
+                <Property Name="npo" Type="Edm.Int32"/>
+                <Property Name="_all" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="Total_liabilities_1">
+                <Property Name="liabilities" Type="Edm.String"/>
+                <Property Name="po" Type="Edm.Int32"/>
+                <Property Name="npo" Type="Edm.Int32"/>
+                <Property Name="total_liabilities" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="key_TotalAccountsPayable_1">
+                <Property Name="chartDimension" Type="Edm.String"/>
+                <Property Name="chartMeasure" Type="Edm.Decimal" Scale="2" Precision="9"/>
+            </EntityType>
+            <EntityType Name="Vendors">
+                <Property Name="vendor_code" Type="Edm.String"/>
+                <Property Name="vendor_name" Type="Edm.String"/>
+                <Property Name="sos" Type="Edm.String"/>
+                <Property Name="amount" Type="Edm.String"/>
+                <Property Name="currency" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Productivity">
+                <Key>
+                    <PropertyRef Name="userid"/>
+                </Key>
+                <Property Name="approval_time" Type="Edm.String"/>
+                <Property Name="approved" Type="Edm.String"/>
+                <Property Name="avg_time" Type="Edm.String"/>
+                <Property Name="cycle_time" Type="Edm.String"/>
+                <Property Name="delegated" Type="Edm.String"/>
+                <Property Name="inprocessing" Type="Edm.String"/>
+                <Property Name="processing_time" Type="Edm.String"/>
+                <Property Name="rejected" Type="Edm.String"/>
+                <Property Name="role" Type="Edm.String"/>
+                <Property Name="total_processed" Type="Edm.String"/>
+                <Property Name="total_timespent" Type="Edm.String"/>
+                <Property Name="userid" Type="Edm.String" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="ProductivityReportOverview_1">
+                <Property Name="groupid" Type="Edm.Int32"/>
+                <Property Name="invoices" Type="Edm.Int32"/>
+                <Property Name="months" Type="Edm.String"/>
+                <Property Name="name" Type="Edm.String"/>
+                <Property Name="count" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="ProductivityReportOverview_2">
+                <Property Name="name" Type="Edm.String"/>
+                <Property Name="process_value" Type="Edm.Int32"/>
+                <Property Name="inprocess_value" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="Overview_page">
+                <Property Name="chartDimension" Type="Edm.String"/>
+                <Property Name="chartMeasure" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Overview_page_1">
+                <Property Name="current_payable" Type="Edm.String"/>
+                <Property Name="over_due_amount" Type="Edm.String"/>
+                <Property Name="payable_by_today" Type="Edm.String"/>
+                <Property Name="payable_within_7days" Type="Edm.String"/>
+                <Property Name="total_payable" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="MyTask">
+                <Property Name="invoice_no" Type="Edm.String"/>
+                <Property Name="sup_name" Type="Edm.String"/>
+                <Property Name="date" Type="Edm.String"/>
+                <Property Name="amount" Type="Edm.String"/>
+            </EntityType>
+            <Annotations Target="CatalogService.Invoice_overviewchart_1">
+                <Annotation Term="UI.Chart" Qualifier="Invoice_overviewchart_1">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Donut"/>
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>chartMeasure</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="MeasureAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure" PropertyPath="chartMeasure"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>chartDimension</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="DimensionAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartDimensionAttributeType">
+                                    <PropertyValue Property="Dimension" PropertyPath="chartDimension"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/Invoice_overviewchart_1">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Invoice_overviewchart_1/chartDimension">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Invoice_overviewchart_1/chartMeasure">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.AccountPayable_1">
+                <Annotation Term="UI.Chart" Qualifier="AccountPayable_1">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Donut"/>
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>chartMeasure</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="MeasureAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure" PropertyPath="chartMeasure"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>chartDimension</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="DimensionAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartDimensionAttributeType">
+                                    <PropertyValue Property="Dimension" PropertyPath="chartDimension"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/AccountPayable_1">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.AccountPayable_1/chartDimension">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.AccountPayable_1/chartMeasure">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Liability">
+                <Annotation Term="UI.DeleteHidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/Liability">
+                <Annotation Term="UI.DeleteHidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.LiabilityBasedOnAmount_1">
+                <Annotation Term="UI.Chart" Qualifier="LiabilityBasedOnAmount_1">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Donut"/>
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>chartMeasure</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="MeasureAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure" PropertyPath="chartMeasure"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>chartDimension</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="DimensionAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartDimensionAttributeType">
+                                    <PropertyValue Property="Dimension" PropertyPath="chartDimension"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>years</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/LiabilityBasedOnAmount_1">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.LiabilityBasedOnAmount_1/chartDimension">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.LiabilityBasedOnAmount_1/chartMeasure">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.LiabilityBasedOnAmount_1/years">
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="Tableyears"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="years"/>
+                                    <PropertyValue Property="ValueListProperty" String="year"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Label" String="label123"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+                <Annotation Term="Common.FilterDefaultValue" String="2023"/>
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.TotalAccountsPayable_1">
+                <Annotation Term="UI.Chart" Qualifier="TotalAccountsPayable_1">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Donut"/>
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>chartMeasure</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="MeasureAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure" PropertyPath="chartMeasure"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>chartDimension</PropertyPath>
+                                <PropertyPath>years</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="DimensionAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartDimensionAttributeType">
+                                    <PropertyValue Property="Dimension" PropertyPath="chartDimension"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/>
+                                </Record>
+                                <Record Type="UI.ChartDimensionAttributeType">
+                                    <PropertyValue Property="Dimension" PropertyPath="years"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>years</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/TotalAccountsPayable_1">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.TotalAccountsPayable_1/chartDimension">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.TotalAccountsPayable_1/chartMeasure">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.VendorLiabilityReportforCompanyCode_1">
+                <Annotation Term="UI.Chart" Qualifier="VendorLiabilityReportforCompanyCode_1">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Column"/>
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>due_amount</PropertyPath>
+                                <PropertyPath>overdue_amount</PropertyPath>
+                                <PropertyPath>processed_amount</PropertyPath>
+                                <PropertyPath>total_amount</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="MeasureAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure" PropertyPath="due_amount"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/>
+                                </Record>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure" PropertyPath="overdue_amount"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/>
+                                </Record>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure" PropertyPath="processed_amount"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/>
+                                </Record>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure" PropertyPath="total_amount"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>vendor_name</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="DimensionAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartDimensionAttributeType">
+                                    <PropertyValue Property="Dimension" PropertyPath="vendor_name"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>years</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/VendorLiabilityReportforCompanyCode_1">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.VendorLiabilityReportforCompanyCode_1/due_amount">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.VendorLiabilityReportforCompanyCode_1/overdue_amount">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.VendorLiabilityReportforCompanyCode_1/processed_amount">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.VendorLiabilityReportforCompanyCode_1/total_amount">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.VendorLiabilityReportforCompanyCode_1/vendor_name">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Aging_bsd_comp_1">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/Aging_bsd_comp_1">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Aging_bsd_comp_1/cocd1000">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Aging_bsd_comp_1/_0_to_30_days">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Aging_bsd_comp_1/_31_to_60_days">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Aging_bsd_comp_1/_61_to_90_days">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Aging_bsd_comp_1/d_gt_90">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Processed_InProcessing_1">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/Processed_InProcessing_1">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Processed_InProcessing_1/progress">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Processed_InProcessing_1/po">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Processed_InProcessing_1/npo">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Processed_InProcessing_1/_all">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Total_liabilities_1">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/Total_liabilities_1">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Total_liabilities_1/liabilities">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Total_liabilities_1/po">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Total_liabilities_1/npo">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Total_liabilities_1/total_liabilities">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.key_TotalAccountsPayable_1">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/key_TotalAccountsPayable_1">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.key_TotalAccountsPayable_1/chartDimension">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.key_TotalAccountsPayable_1/chartMeasure">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.ProductivityReportOverview_1">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/ProductivityReportOverview_1">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.ProductivityReportOverview_1/groupid">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.ProductivityReportOverview_1/invoices">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.ProductivityReportOverview_1/months">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Overview_page">
+                <Annotation Term="UI.Chart" Qualifier="Overview_page">
+                    <Record Type="UI.ChartDefinitionType">
+                        <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Donut"/>
+                        <PropertyValue Property="Measures">
+                            <Collection>
+                                <PropertyPath>chartMeasure</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="MeasureAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartMeasureAttributeType">
+                                    <PropertyValue Property="Measure" PropertyPath="chartMeasure"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Dimensions">
+                            <Collection>
+                                <PropertyPath>chartDimension</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="DimensionAttributes">
+                            <Collection>
+                                <Record Type="UI.ChartDimensionAttributeType">
+                                    <PropertyValue Property="Dimension" PropertyPath="chartDimension"/>
+                                    <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Overview_page/chartDimension">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Overview_page/chartMeasure">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Overview_page_1">
+                <Annotation Term="UI.LineItem" Qualifier="current_payable">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="current_payable"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem" Qualifier="over_due_amount">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="over_due_amount"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem" Qualifier="total_payable">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="total_payable"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem" Qualifier="payable">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="payable_by_today"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="payable_within_7days"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/Overview_page_1">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record Type="Aggregation.ApplySupportedType">
+                        <PropertyValue Property="PropertyRestrictions" Bool="true"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.MyTask">
+                <Annotation Term="UI.LineItem" Qualifier="mytask">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="INVOICE NO"/>
+                            <PropertyValue Property="Value" Path="invoice_no"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="SUPPLIER NAME"/>
+                            <PropertyValue Property="Value" Path="sup_name"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="DATE"/>
+                            <PropertyValue Property="Value" Path="date"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="AMOUNT"/>
+                            <PropertyValue Property="Value" Path="amount"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

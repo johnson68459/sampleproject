@@ -1,0 +1,54 @@
+{
+    "name": "eliporeports",
+    "version": "1.0.0",
+    "description": "A simple CAP project.",
+    "repository": "<Add your repository here>",
+    "license": "UNLICENSED",
+    "private": true,
+    "dependencies": {
+        "@sap-cloud-sdk/http-client": "^3.6.0",
+        "@sap-cloud-sdk/resilience": "^3.6.0",
+        "@sap/cds": "^7",
+        "@sap/cds-hana": "^2",
+        "@sap/xssec": "^3",
+        "express": "^4",
+        "passport": "^0",
+        "start": "^5.1.0"
+    },
+    "devDependencies": {
+        "@cap-js/sqlite": "^1",
+        "@sap/cds-dk": "^7",
+        "@sap/ux-specification": "^1.108.16",
+        "rimraf": "^3.0.2"
+    },
+    "scripts": {
+        "start": "cds-serve",
+        "watch-liability": "cds watch --open liability/webapp/index.html?sap-ui-xx-viewCache=false",
+        "undeploy": "cf undeploy eliporeports --delete-services --delete-service-keys --delete-service-brokers",
+        "build": "rimraf resources mta_archives && mbt build --mtar archive",
+        "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
+        "watch-liabilitychart": "cds watch --open liabilitychart/webapp/index.html?sap-ui-xx-viewCache=false",
+        "watch-overview": "cds watch --open overview/webapp/index.html?sap-ui-xx-viewCache=false",
+        "watch-invoicechart": "cds watch --open invoicechart/webapp/index.html?sap-ui-xx-viewCache=false",
+        "watch-agingreport": "cds watch --open agingreport/webapp/index.html?sap-ui-xx-viewCache=false",
+        "watch-agingchart": "cds watch --open agingchart/webapp/index.html?sap-ui-xx-viewCache=false",
+        "watch-productivityreport": "cds watch --open productivityreport/webapp/index.html?sap-ui-xx-viewCache=false",
+        "watch-productivitychart": "cds watch --open productivitychart/webapp/index.html?sap-ui-xx-viewCache=false",
+        "watch-keyprocessanalyreport": "cds watch --open keyprocessanalyreport/webapp/index.html?sap-ui-xx-viewCache=false",
+        "watch-keyprocesschart": "cds watch --open keyprocesschart/webapp/index.html?sap-ui-xx-viewCache=false",
+        "watch-invoicesumreport": "cds watch --open invoicesumreport/webapp/index.html?sap-ui-xx-viewCache=false"
+    },
+    "sapux": [
+        "app/liability",
+        "app/liabilitychart",
+        "app/overview",
+        "app/invoicechart",
+        "app/agingreport",
+        "app/agingchart",
+        "app/productivityreport",
+        "app/productivitychart",
+        "app/keyprocessanalyreport",
+        "app/keyprocesschart",
+        "app/invoicesumreport"
+    ]
+}

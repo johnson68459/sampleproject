@@ -1,0 +1,211 @@
+{
+    "_version": "1.58.0",
+    "sap.app": {
+        "id": "re.invoicesumreport",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:lrop",
+            "version": "1.11.2",
+            "toolsId": "a2cc841d-001c-4872-882f-47e9af29f5b6"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/odata/v4/catalog/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "invoicesumreportso-display": {
+                    "semanticObject": "invoicesumreportso",
+                    "action": "display",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    }
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.119.2",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+                "sap.fe.templates": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "re.invoicesumreport.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "routing": {
+            "routes": [
+                {
+                    "pattern": ":?query:",
+                    "name": "InvoiceList",
+                    "target": "InvoiceList"
+                },
+                {
+                    "pattern": "Invoice({key}):?query:",
+                    "name": "InvoiceObjectPage",
+                    "target": "InvoiceObjectPage"
+                }
+            ],
+            "targets": {
+                "InvoiceList": {
+                    "type": "Component",
+                    "id": "InvoiceList",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings": {
+                            "contextPath": "/Invoice",
+                            "variantManagement": "Page",
+                            "navigation": {
+                                "Invoice": {
+                                    "detail": {
+                                        "route": "InvoiceObjectPage"
+                                    }
+                                }
+                            },
+                            "initialLoad": "Enabled",
+                            "controlConfiguration": {
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "tableSettings": {
+                                        "type": "GridTable"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "InvoiceObjectPage": {
+                    "type": "Component",
+                    "id": "InvoiceObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "contextPath": "/Invoice",
+                            "navigation": {},
+                            "controlConfiguration": {
+                                "invoice_child_items/@com.sap.vocabularies.UI.v1.LineItem#Items": {
+                                    "tableSettings": {
+                                        "type": "GridTable"
+                                    }
+                                }
+                            },
+                            "content": {
+                                "body": {
+                                    "sections": {
+                                        "GeneratedFacet1": {
+                                            "sideContent": {
+                                                "template": "re.invoicesumreport.ext.fragment.Pdffragment",
+                                                "position": {
+                                                    "placement": "After",
+                                                    "anchor": "GeneratedFacet1"
+                                                },
+                                                "title": "pdf",
+                                                "type": "XMLFragment"
+                                            },
+                                            "position": {
+                                                "anchor": "Itemssection",
+                                                "placement": "After"
+                                            },
+                                            "type": "XMLFragment"
+                                        }
+                                    }
+                                },
+                                "header": {
+                                    "actions": {
+                                        "showpdf": {
+                                            "press": "re.invoicesumreport.ext.controller.Showpdf._showpdf",
+                                            "visible": true,
+                                            "enabled": true,
+                                            "text": "show/hide"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "extends": {
+            "extensions": {
+                "sap.ui.controllerExtensions": {
+                    "sap.fe.templates.ObjectPage.ObjectPageController#re.invoicesumreport::InvoiceObjectPage": {
+                        "controllerName": "re.invoicesumreport.ext.controller.Pdfcontroller"
+                    }
+                }
+            }
+        }
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "mgdappreport"
+    }
+}

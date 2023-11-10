@@ -1,0 +1,138 @@
+/* list01 */
+#container-ov\.overview---list01Original--ovpCardHeader,
+#container-ov\.overview---list01Original--listItem-container-ov\.overview---list01Original--ovpList-0,
+#container-ov\.overview---list01Original--ovpCardContentContainer {
+    background: #67C7DF;
+}
+
+#application-ovoverview-display-component---list01Original--ovpCardHeader,
+#application-ovoverview-display-component---list01OriginallistItem-container-ov\.overview---list01Original--ovpList-0,
+#application-ovoverview-display-component---list01Original--ovpCardContentContainer {
+    background: #67C7DF;
+}
+
+
+
+/* list02 */
+#container-ov\.overview---list02Original--ovpCardHeader,
+#container-ov\.overview---list02Original--listItem-container-ov\.overview---list02Original--ovpList-0,
+#container-ov\.overview---list02Original--ovpCardContentContainer {
+    background: #F7C773;
+}
+
+#application-ovoverview-display-component---list02Original--ovpCardHeader,
+#application-ovoverview-display-component---list02OriginallistItem-container-ov\.overview---list02Original--ovpList-0,
+#application-ovoverview-display-component---list02Original--ovpCardContentContainer {
+    background: #F7C773;
+}
+
+/* list03 */
+#container-ov\.overview---list03Original--ovpCardHeader,
+#container-ov\.overview---list03Original--listItem-container-ov\.overview---list03Original--ovpList-0,
+#container-ov\.overview---list03Original--ovpCardContentContainer {
+    background: #ED7087;
+}
+
+#application-ovoverview-display-component---list03Original--ovpCardHeader,
+#application-ovoverview-display-component---list03OriginallistItem-container-ov\.overview---list03Original--ovpList-0,
+#application-ovoverview-display-component---list03Original--ovpCardContentContainer {
+    background: #ED7087;
+}
+
+
+/* list04 */
+#container-ov\.overview---list04Original--ovpCardHeader,
+#container-ov\.overview---list04Original--listItem-container-ov\.overview---list04Original--ovpList-0,
+#container-ov\.overview---list04Original--ovpCardContentContainer {
+    background: #95949A;
+}
+
+#application-ovoverview-display-component---list04Original--ovpCardHeader,
+#application-ovoverview-display-component---list04OriginallistItem-container-ov\.overview---list04Original--ovpList-0,
+#application-ovoverview-display-component---list04Original--ovpCardContentContainer {
+    background: #95949A;
+}
+
+
+div.sapMSLITitleOnly {
+    color: white;
+    text-align: center;
+    font-size: 1.2rem !important;
+
+}
+
+#container-ov\.overview---list01Original--ovpHeaderTitle-inner,
+#container-ov\.overview---list02Original--ovpHeaderTitle-inner,
+#container-ov\.overview---list03Original--ovpHeaderTitle-inner,
+#container-ov\.overview---list04Original--ovpHeaderTitle-inner {
+    color: white;
+}
+
+#application-ovoverview-display-component---list01Original--ovpHeaderTitle-inner,
+#application-ovoverview-display-component---list02Original--ovpHeaderTitle-inner,
+#application-ovoverview-display-component---list03Original--ovpHeaderTitle-inner,
+#application-ovoverview-display-component---list04Original--ovpHeaderTitle-inner {
+    color: white;
+}
+
+
+/* #container-ov.overview---list01Original--ovpCardContentContainer{
+    background: #67C7DF;
+} */
+
+.sapMSLITitle,
+.sapMSLIDescription {
+    color: white;
+}
+
+
+#__hbox4,
+#__hbox9,
+#__hbox14,
+#__hbox19 {
+    visibility: hidden;
+    /* display: none; */
+}
+
+#__hbox24 {
+    visibility: hidden;
+}
+
+
+/* //deploy */
+
+#application-ovoverview-display-component---list01Original--sapOvpCardAdditionalActions-img,
+#application-ovoverview-display-component---lzchart01Original--sapOvpCardAdditionalActions,
+#application-ovoverview-display-component---list01Original--sapOvpCardAdditionalActions-inner,
+#application-ovoverview-display-component---list01Original--sapOvpCardAdditionalActions,
+#application-ovoverview-display-component---list02Original--sapOvpCardAdditionalActions,
+#application-ovoverview-display-component---list03Original--sapOvpCardAdditionalActions,
+#application-ovoverview-display-component---list04Original--sapOvpCardAdditionalActions,
+#application-ovoverview-display-component---ljtable01Original--sapOvpCardAdditionalActions,
+#application-ovoverview-display-component---lzchart02Original--sapOvpCardAdditionalActions {
+    visibility: hidden;
+}
+
+#application-ovoverview-display-component---list01Original--listItem-application-ovoverview-display-component---list01Original--ovpList-0,
+#application-ovoverview-display-component---list01Original--ovpCardContentContainer,
+#application-ovoverview-display-component---list01Original--ovpList {
+    background: #67C7DF;
+}
+
+#application-ovoverview-display-component---list02Original--listItem-application-ovoverview-display-component---list02Original--ovpList-0,
+#application-ovoverview-display-component---list02Original--ovpCardContentContainer,
+#application-ovoverview-display-component---list02Original--ovpList {
+    background: #F7C773;
+}
+
+#application-ovoverview-display-component---list03Original--listItem-application-ovoverview-display-component---list03Original--ovpList-0,
+#application-ovoverview-display-component---list03Original--ovpCardContentContainer,
+#application-ovoverview-display-component---list03Original--ovpList {
+    background: #ED7087;
+}
+
+#application-ovoverview-display-component---list04Original--listItem-application-ovoverview-display-component---list04Original--ovpList-0,
+#application-ovoverview-display-component---list04Original--ovpCardContentContainer,
+#application-ovoverview-display-component---list04Original--ovpList {
+    background: #95949A;
+}
