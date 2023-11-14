@@ -72,7 +72,7 @@ div.sapMSLITitleOnly {
 #application-ovoverview-display-component---list02Original--ovpHeaderTitle-inner,
 #application-ovoverview-display-component---list03Original--ovpHeaderTitle-inner,
 #application-ovoverview-display-component---list04Original--ovpHeaderTitle-inner {
-    color: white ;
+    color: white !important;
 }
 
 

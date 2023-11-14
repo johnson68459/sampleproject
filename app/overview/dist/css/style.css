@@ -8,7 +8,7 @@
 #application-ovoverview-display-component---list01Original--ovpCardHeader,
 #application-ovoverview-display-component---list01OriginallistItem-container-ov\.overview---list01Original--ovpList-0,
 #application-ovoverview-display-component---list01Original--ovpCardContentContainer {
-    background: #67C7DF;
+    background: #67C7DF ;
 }
 
 
@@ -17,13 +17,13 @@
 #container-ov\.overview---list02Original--ovpCardHeader,
 #container-ov\.overview---list02Original--listItem-container-ov\.overview---list02Original--ovpList-0,
 #container-ov\.overview---list02Original--ovpCardContentContainer {
-    background: #F7C773;
+    background: #F7C773 ;
 }
 
 #application-ovoverview-display-component---list02Original--ovpCardHeader,
 #application-ovoverview-display-component---list02OriginallistItem-container-ov\.overview---list02Original--ovpList-0,
 #application-ovoverview-display-component---list02Original--ovpCardContentContainer {
-    background: #F7C773;
+    background: #F7C773 ;
 }
 
 /* list03 */
@@ -36,7 +36,7 @@
 #application-ovoverview-display-component---list03Original--ovpCardHeader,
 #application-ovoverview-display-component---list03OriginallistItem-container-ov\.overview---list03Original--ovpList-0,
 #application-ovoverview-display-component---list03Original--ovpCardContentContainer {
-    background: #ED7087;
+    background: #ED7087 ;
 }
 
 
@@ -50,7 +50,7 @@
 #application-ovoverview-display-component---list04Original--ovpCardHeader,
 #application-ovoverview-display-component---list04OriginallistItem-container-ov\.overview---list04Original--ovpList-0,
 #application-ovoverview-display-component---list04Original--ovpCardContentContainer {
-    background: #95949A;
+    background: #95949A ;
 }
 
 
@@ -72,7 +72,7 @@ div.sapMSLITitleOnly {
 #application-ovoverview-display-component---list02Original--ovpHeaderTitle-inner,
 #application-ovoverview-display-component---list03Original--ovpHeaderTitle-inner,
 #application-ovoverview-display-component---list04Original--ovpHeaderTitle-inner {
-    color: white;
+    color: white !important;
 }
 
 
@@ -128,7 +128,7 @@ div.sapMSLITitleOnly {
 #application-ovoverview-display-component---list03Original--listItem-application-ovoverview-display-component---list03Original--ovpList-0,
 #application-ovoverview-display-component---list03Original--ovpCardContentContainer,
 #application-ovoverview-display-component---list03Original--ovpList {
-    background: #ED7087;
+    background: #ED7087 ;
 }
 
 #application-ovoverview-display-component---list04Original--listItem-application-ovoverview-display-component---list04Original--ovpList-0,
