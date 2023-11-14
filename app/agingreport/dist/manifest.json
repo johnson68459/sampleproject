@@ -137,6 +137,11 @@
                                 "@com.sap.vocabularies.UI.v1.LineItem": {
                                     "tableSettings": {
                                         "type": "GridTable"
+                                    },
+                                    "columns": {
+                                        "DataField::flag": {
+                                            "availability": "Hidden"
+                                        }
                                     }
                                 }
                             },
@@ -169,7 +174,13 @@
                             "controlConfiguration": {
                                 "aging_agg/@com.sap.vocabularies.UI.v1.LineItem#AgingOverviewbasedonVendor": {
                                     "tableSettings": {
-                                        "type": "ResponsiveTable"
+                                        "type": "ResponsiveTable",
+                                        "enableExport": false,
+                                        "personalization": {
+                                            "column": false,
+                                            "filter": false,
+                                            "sort": false
+                                        }
                                     },
                                     "columns": {
                                         "DataField::vendor_no": {

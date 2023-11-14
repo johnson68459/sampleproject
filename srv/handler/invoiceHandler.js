@@ -1,4 +1,5 @@
 const cds = require('@sap/cds');
+const axios = require('axios');
 
 module.exports = async function () {
     let = {
@@ -9,7 +10,8 @@ module.exports = async function () {
         Invoice_overviewchart_1,
         AccountPayable_1,
         Overview_page,
-        Overview_page_1
+        Overview_page_1,
+        MasterCompanyCode
     } = this.entities;
 
     // function formatNumber(number) {
@@ -170,6 +172,38 @@ module.exports = async function () {
     //         }
     //     })
 
+    this.before("READ", MasterCompanyCode, async (req) => {
+        try {
+            if (firstRead) {
+                const entries = [];
+
+
+                const resp = await axios.get('https://7firau5x7b.execute-api.eu-central-1.amazonaws.com/einvoice-v1/search-help?master_id=1');
+                const spaces = resp.data.body.search_help;
+                let cnt = 1;
+                spaces.forEach(space => {
+
+                    entries.push(
+                        {
+                            id: (cnt++),
+                            code: `${space.code}`,
+                            master_name: `${space.master_name}`,
+                            description: `${space.description}`
+                        }
+                    )
+                })
+
+                await cds.tx(req).run(INSERT.into(MasterCompanyCode).entries(entries));
+
+            }
+        } catch (err) {
+            req.error(500, err.message);
+        }
+
+
+    })
+
+
     this.before("READ", Invoice, async (req) => {
         // firstRead = true;
         try {
@@ -286,7 +320,7 @@ module.exports = async function () {
                     else if (entriesdemo.days_to_due == 'Paid') {
                         entriesdemo.ovrdueflag = 3;
                     }
-                    else{
+                    else {
                         entriesdemo.ovrdueflag = 2;
                     }
                     // console.log(typeof(entriesdemo.ovrdueflag));

@@ -6,6 +6,13 @@ namespace my.bookshop;
 //   stock  : Integer;
 // }
 
+entity MasterCompanyCode {
+    id          : Integer;
+    code        : String;
+    master_name : String;
+    description : String;
+}
+
 
 entity Invoice {
     key invoice_no            : Integer; // Assuming "invoice_no" is unique identifier

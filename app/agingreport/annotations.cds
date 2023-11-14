@@ -54,6 +54,18 @@ annotate service.Aging with @(UI.LineItem: [
         // Inline: true,
         // IconUrl:'sap-icon://business-objects-experience'
     },
+    {
+        $Type : 'UI.DataField',
+        Value : vendor_no,
+        Label : 'vendor_no',
+        ![@UI.Hidden],
+    },
+    {
+        $Type : 'UI.DataField',
+        Value : flag,
+        Label : 'flag',
+        ![@UI.Hidden],
+    },
 ]);
 
 annotate service.Aging with @(
@@ -274,7 +286,7 @@ annotate service.Aging_aggregate with @(
         Name : 'invoice_0_to_30_sum',
         AggregatableProperty : invoice_0_to_30,
         AggregationMethod : 'sum',
-        ![@Common.Label] : 'invoice_0_to_30 (Sum)',
+        ![@Common.Label] : '0-30 days',
     },
     UI.Chart #chartSection : {
         $Type : 'UI.ChartDefinitionType',
@@ -296,7 +308,7 @@ annotate service.Aging_aggregate with @(
         Name : 'invoice_31_to_60_sum',
         AggregatableProperty : invoice_31_to_60,
         AggregationMethod : 'sum',
-        ![@Common.Label] : 'invoice_31_to_60 (Sum)',
+        ![@Common.Label] : '31-60 days',
     }
 );
 annotate service.Aging_aggregate with @(
@@ -305,7 +317,7 @@ annotate service.Aging_aggregate with @(
         Name : '_61_to_90_days_sum',
         AggregatableProperty : _61_to_90_days,
         AggregationMethod : 'sum',
-        ![@Common.Label] : '_61_to_90_days (Sum)',
+        ![@Common.Label] : '61-90 days',
     }
 );
 annotate service.Aging_aggregate with @(
@@ -314,6 +326,6 @@ annotate service.Aging_aggregate with @(
         Name : 'd_gt_90_sum',
         AggregatableProperty : d_gt_90,
         AggregationMethod : 'sum',
-        ![@Common.Label] : 'd_gt_90 (Sum)',
+        ![@Common.Label] : '91 or more days',
     }
 );

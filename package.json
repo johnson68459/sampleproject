@@ -11,6 +11,7 @@
         "@sap/cds": "^7",
         "@sap/cds-hana": "^2",
         "@sap/xssec": "^3",
+        "axios": "^1.6.1",
         "express": "^4",
         "passport": "^0",
         "start": "^5.1.0"

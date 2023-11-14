@@ -133,7 +133,33 @@
                                     }
                                 ]
                             },
-                            "initialLoad": "Enabled"
+                            "initialLoad": "Enabled",
+                            "controlConfiguration": {
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "tableSettings": {
+                                        "enableExport": false,
+                                        "personalization": {
+                                            "column": false
+                                        }
+                                    }
+                                },
+                                "/Total_liabilities_1/@com.sap.vocabularies.UI.v1.LineItem#tableView": {
+                                    "tableSettings": {
+                                        "enableExport": false,
+                                        "personalization": {
+                                            "column": false
+                                        }
+                                    }
+                                },
+                                "/Vendors/@com.sap.vocabularies.UI.v1.LineItem#tableView": {
+                                    "tableSettings": {
+                                        "enableExport": false,
+                                        "personalization": {
+                                            "column": false
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
