@@ -128,6 +128,32 @@
                         "rows": 2
                     }
                 }
+            },
+            "chart06": {
+                "model": "mainModel",
+                "template": "sap.ovp.cards.v4.charts.analytical",
+                "settings": {
+                    "title": "Total Accounts Payable",
+                    "entitySet": "TotalAccountsPayable_1",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#TotalAccountsPayable_1",
+                    "defaultSpan": {
+                        "cols": 2,
+                        "rows": 2
+                    }
+                }
+            },
+            "chart07": {
+                "model": "mainModel",
+                "template": "sap.ovp.cards.v4.charts.analytical",
+                "settings": {
+                    "title": "Vendor Liability Report for Company Code",
+                    "entitySet": "VendorLiabilityReportforCompanyCode_1",
+                    "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#VendorLiabilityReportforCompanyCode_1",
+                    "defaultSpan": {
+                        "cols": 4,
+                        "rows": 3
+                    }
+                }
             }
         }
     },
