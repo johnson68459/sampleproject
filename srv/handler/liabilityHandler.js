@@ -227,14 +227,14 @@ module.exports = async function () {
     // Handler for Tableyears
     this.before('READ', Tableyears, async (req) => {
       try {
-        if (firstReadTableyears) {
+        // if (firstReadTableyears) {
           const yearsData = await c4re.get('/dev/dropdown?drop_key=fiscal_year');
           const years = yearsData.body.map(space => space.table_key);
           const entries = years.map(year => ({ year: year }));
           cds.tx(req).run(DELETE(Tableyears));
           await cds.tx(req).run(INSERT.into(Tableyears).entries(entries));
-          firstReadTableyears = false;
-        }
+        //   firstReadTableyears = false;
+        // }
       } catch (err) {
         req.error(500, err.message);
       }

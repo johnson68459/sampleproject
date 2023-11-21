@@ -206,7 +206,8 @@ entity LiabilityBasedOnAmount_1 {
         chartMeasure   : Decimal(15, 2)
                                 @Analytics.Measure;
         years          : String @Common.FilterDefaultValue: '2023'
-                                @Analytics.Dimension;
+                                @Analytics.Dimension
+                                @Search.defaultSearchElement;
 // table : Association to one Tableyears;
 }
 
@@ -222,7 +223,7 @@ entity TotalAccountsPayable_1 {
                                 @Analytics.Dimension;
         chartMeasure   : Decimal(15, 2) default 0.00
                                 @Analytics.Measure;
-        years          : String @Common.FilterDefaultValue: '2023';
+        years          : String @Common.FilterDefaultValue: '2023'  @Search.defaultSearchElement;
 }
 
 annotate TotalAccountsPayable_1 with @Aggregation.ApplySupported: {
@@ -243,7 +244,7 @@ entity VendorLiabilityReportforCompanyCode_1 {
         vendor_name      : String
                                           @Analytics.Dimension;
         vendor_no        : String;
-        years            : String         @Common.FilterDefaultValue: '2023';
+        years            : String         @Common.FilterDefaultValue: '2023'  @Search.defaultSearchElement;
 }
 
 annotate VendorLiabilityReportforCompanyCode_1 with @Aggregation.ApplySupported: {

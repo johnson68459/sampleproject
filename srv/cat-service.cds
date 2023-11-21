@@ -132,19 +132,6 @@ service CatalogService {
         }]
     };
 
-    annotate LiabilityBasedOnAmount_1 {
-        years
-        @Common.ValueListWithFixedValues
-        @Common.ValueList: {
-            Label         : 'label123',
-            CollectionPath: 'Tableyears',
-            Parameters    : [{
-                $Type            : 'Common.ValueListParameterInOut',
-                ValueListProperty: 'year',
-                LocalDataProperty: years
-            }]
-        };
-    }
 
     annotate LiabilityBasedOnAmount_1 with @UI.Chart #LiabilityBasedOnAmount_1: {
         ChartType          : #Donut,
@@ -160,7 +147,12 @@ service CatalogService {
         }]
     };
 
-    annotate LiabilityBasedOnAmount_1 with @UI.SelectionFields: [years];
+    annotate LiabilityBasedOnAmount_1 with @UI: {
+        SelectionFields : [
+            years
+        ],
+        
+    };
 
     annotate MyTask with @UI.LineItem #mytask: [
         {
