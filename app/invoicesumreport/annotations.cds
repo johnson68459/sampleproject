@@ -435,3 +435,46 @@ annotate service.Invoice with @(UI.FieldGroup #Comments: {
         Label: 'Comments',
     }, ],
 });
+annotate service.Invoice with @(
+    UI.SelectionFields : [
+        ovrdueflag,
+    ]
+);
+annotate service.Invoice with {
+    ovrdueflag @Common.Label : 'ovrdueflag'
+};
+annotate service.Invoice with {
+    ovrdueflag @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'SearchOverview',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : ovrdueflag,
+                    ValueListProperty : 'value',
+                },
+            ],
+            Label : 'ovrduesearchhelp',
+        },
+        Common.ValueListWithFixedValues : true
+)};
+annotate service.SearchOverview with {
+    value @Common.Text : {
+        $value : name,
+        ![@UI.TextArrangement] : #TextOnly,
+    }
+};
+
+annotate service.Invoice with @Capabilities.FilterRestrictions : {
+    $Type : 'Capabilities.FilterRestrictionsType',
+    FilterExpressionRestrictions : [
+        {
+            $Type : 'Capabilities.FilterExpressionRestrictionType',
+            Property : ovrdueflag,
+            AllowedExpressions : 'SingleValue',
+        },
+    ],
+};
+
+// annotate Foo with ;
+

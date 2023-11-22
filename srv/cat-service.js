@@ -4,6 +4,7 @@ const liabilityHandler = require('./handler/liabilityHandler');
 const agingHandler = require('./handler/agingHandler');
 const keyProcessAnalyticsHandler = require('./handler/keyProcessAnalyticsHandler');
 const productivityHandler = require('./handler/productivityHandler');
+const assignmentrulesHandler = require('./handler/assignmentrulesHandler');
 
 module.exports = cds.service.impl(async function () {
 
@@ -13,4 +14,5 @@ module.exports = cds.service.impl(async function () {
     await agingHandler.call(this);
     await keyProcessAnalyticsHandler.call(this);
     await productivityHandler.call(this);
+    await assignmentrulesHandler.call(this);
 });

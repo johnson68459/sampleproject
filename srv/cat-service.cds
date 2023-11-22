@@ -147,11 +147,8 @@ service CatalogService {
         }]
     };
 
-    annotate LiabilityBasedOnAmount_1 with @UI: {
-        SelectionFields : [
-            years
-        ],
-        
+    annotate LiabilityBasedOnAmount_1 with @UI: {SelectionFields: [years],
+
     };
 
     annotate MyTask with @UI.LineItem #mytask: [
@@ -544,4 +541,20 @@ service CatalogService {
 
     @UI.DeleteHidden
     entity MyTask                                as projection on my.MyTask;
+
+    entity SearchOverview as projection on my.SearchOverview;
+
+
+    //Assignment Rules
+    @odata.draft.enabled
+    entity main                                  as projection on my.main;
+
+    entity child1                                as projection on my.child1;
+    entity members                               as projection on my.members;
+    entity assignment_criteria_help              as projection on my.assignment_criteria_help;
+    entity condition_help                        as projection on my.condition_help;
+    entity currency_help                         as projection on my.currency_help;
+    entity member_help                           as projection on my.member_help;
+    entity vendor_help                           as projection on my.vendor_help;
+
 }

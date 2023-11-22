@@ -19,7 +19,7 @@
     "devDependencies": {
         "@cap-js/sqlite": "^1",
         "@sap/cds-dk": "^7",
-        "@sap/ux-specification": "^1.108.16",
+        "@sap/ux-specification": "^1.108.18",
         "rimraf": "^3.0.2"
     },
     "scripts": {
@@ -27,7 +27,7 @@
         "watch-liability": "cds watch --open liability/webapp/index.html?sap-ui-xx-viewCache=false",
         "undeploy": "cf undeploy eliporeports --delete-services --delete-service-keys --delete-service-brokers",
         "build": "rimraf resources mta_archives && mbt build --mtar archive",
-        "deploy": "cf deploy mta_archives/eliporeports_1.0.0.mtar --retries 1",
+        "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
         "watch-liabilitychart": "cds watch --open liabilitychart/webapp/index.html?sap-ui-xx-viewCache=false",
         "watch-overview": "cds watch --open overview/webapp/index.html?sap-ui-xx-viewCache=false",
         "watch-invoicechart": "cds watch --open invoicechart/webapp/index.html?sap-ui-xx-viewCache=false",
@@ -37,7 +37,9 @@
         "watch-productivitychart": "cds watch --open productivitychart/webapp/index.html?sap-ui-xx-viewCache=false",
         "watch-keyprocessanalyreport": "cds watch --open keyprocessanalyreport/webapp/index.html?sap-ui-xx-viewCache=false",
         "watch-keyprocesschart": "cds watch --open keyprocesschart/webapp/index.html?sap-ui-xx-viewCache=false",
-        "watch-invoicesumreport": "cds watch --open invoicesumreport/webapp/index.html?sap-ui-xx-viewCache=false"
+        "watch-invoicesumreport": "cds watch --open invoicesumreport/webapp/index.html?sap-ui-xx-viewCache=false",
+        "watch-assignmentruleselipo": "cds watch --open assignmentruleselipo/webapp/index.html?sap-ui-xx-viewCache=false",
+        "watch-demodeploymentrules": "cds watch --open demodeploymentrules/webapp/index.html?sap-ui-xx-viewCache=false"
     },
     "sapux": [
         "app/liability",
@@ -50,6 +52,8 @@
         "app/productivitychart",
         "app/keyprocessanalyreport",
         "app/keyprocesschart",
-        "app/invoicesumreport"
+        "app/invoicesumreport",
+        "app/assignmentruleselipo",
+        "app/demodeploymentrules"
     ]
 }

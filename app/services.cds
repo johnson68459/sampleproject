@@ -25,3 +25,6 @@ using from './keyprocesschart/annotations';
 
 using from './invoicesumreport/annotations';
 
+using from './assignmentruleselipo/annotations';
+
+using from './demodeploymentrules/annotations';

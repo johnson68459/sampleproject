@@ -108,6 +108,14 @@ modules:
       - reinvoicesumreport.zip
       name: reinvoicesumreport
       target-path: resources/
+    - artifacts:
+      - reassignmentruleselipo.zip
+      name: reassignmentruleselipo
+      target-path: resources/
+    - artifacts:
+      - redemodeploymentrules.zip
+      name: redemodeploymentrules
+      target-path: resources/
 - name: myliability
   type: html5
   path: app/liability
@@ -211,6 +219,26 @@ modules:
 - name: reinvoicesumreport
   type: html5
   path: app/invoicesumreport
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: reassignmentruleselipo
+  type: html5
+  path: app/assignmentruleselipo
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: redemodeploymentrules
+  type: html5
+  path: app/demodeploymentrules
   build-parameters:
     build-result: dist
     builder: custom

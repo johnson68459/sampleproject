@@ -6,6 +6,11 @@ namespace my.bookshop;
 //   stock  : Integer;
 // }
 
+entity SearchOverview {
+    name  : String;
+    value : Integer;
+}
+
 entity MasterCompanyCode {
     id          : Integer;
     code        : String;
@@ -220,10 +225,10 @@ annotate LiabilityBasedOnAmount_1 with @Aggregation.ApplySupported: {
 entity TotalAccountsPayable_1 {
     key id             : String;
         chartDimension : String
-                                @Analytics.Dimension;
+                                 @Analytics.Dimension;
         chartMeasure   : Decimal(15, 2) default 0.00
-                                @Analytics.Measure;
-        years          : String @Common.FilterDefaultValue: '2023'  @Search.defaultSearchElement;
+                                 @Analytics.Measure;
+        years          : String  @Common.FilterDefaultValue: '2023'  @Search.defaultSearchElement;
 }
 
 annotate TotalAccountsPayable_1 with @Aggregation.ApplySupported: {
@@ -503,3 +508,74 @@ entity MyTask {
     date       : String;
     amount     : String;
 }
+
+//Assignment Rules
+
+
+entity main {
+    key ID                    : UUID;
+        assighnment_rule_name : String;
+        // assignment_criteria: String;
+        // condition : String;
+        // amount :Integer;
+        // currency :Integer;
+        // amount_from : Integer;
+        // amount_to :Integer @asser.range:{$value: amount_from,};
+        comment               : String;
+        rell1                 : Composition of many child1
+                                    on rell1.ID = ID;
+        rel12                 : Composition of many members
+                                    on rel12.ID = ID;
+}
+
+entity child1 {
+    key ID                    : UUID;
+    key UUID                  : UUID;
+        assighnment_rule_name : String;
+        assignment_criteria   : String;
+        condition             : String;
+        code                  : String;
+        amount                : Integer;
+        currency              : String;
+        amount_from           : Integer;
+        amount_to             : Integer;
+        child                 : Association to many main;
+}
+
+entity members {
+    key ID          : UUID;
+    key UUID        : UUID;
+        id1         : String;
+        is_group    : String;
+        member_name : String;
+        position    : String;
+        child2      : Association to many main;
+}
+
+entity assignment_criteria_help {
+    value2 : String;
+}
+
+entity condition_help {
+    value  : String;
+    value2 : String;
+    code   : String;
+}
+
+entity currency_help {
+    description : String;
+    code        : String;
+}
+
+entity member_help {
+    id1      : String;
+    is_group : String;
+    name     : String;
+    position : String;
+
+}
+
+entity vendor_help {
+    code        : String;
+    description : String;
+};
