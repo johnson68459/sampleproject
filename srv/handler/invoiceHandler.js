@@ -53,7 +53,7 @@ module.exports = async function () {
     }
 
     this.on('getPdfUrl', async (req) => {
-        debugger
+        // debugger
 
         const fileLinkValue = await SELECT`file_link`.from(Invoice).where({ invoice_no: req.data.invoice_no });
 
@@ -299,7 +299,10 @@ module.exports = async function () {
 
 
                     };
+                    entriesdemo.file_link = entriesdemo.file_link.replace('https://l8m6p8a76e.execute-api.eu-central-1.amazonaws.com', 'https://elipo_backend-shy-echidna-yp.cfapps.us20.hana.ondemand.com');
+                    // entriesdemo.file_link = `https://www.africau.edu/images/default/sample.pdf`;
 
+                    // console.log(fileLink);
 
 
                     if (space.days_to_due == 'Paid') {
