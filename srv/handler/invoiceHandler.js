@@ -11,7 +11,8 @@ module.exports = async function () {
         AccountPayable_1,
         Overview_page,
         Overview_page_1,
-        MasterCompanyCode
+        MasterCompanyCode,
+        InvoiceObj
     } = this.entities;
 
     // function formatNumber(number) {
@@ -55,7 +56,7 @@ module.exports = async function () {
     this.on('getPdfUrl', async (req) => {
         // debugger
 
-        const fileLinkValue = await SELECT`file_link`.from(Invoice).where({ invoice_no: req.data.invoice_no });
+        const fileLinkValue = await SELECT`file_link`.from(InvoiceObj).where({ invoice_no: req.data.invoice_no });
 
         return fileLinkValue;
     });
@@ -207,151 +208,217 @@ module.exports = async function () {
     this.before("READ", Invoice, async (req) => {
         // firstRead = true;
         try {
-            if (firstRead) {
-                let pgnum = 1;
+            if (Object.keys(req.data).length != 0) {
+                console.log('hello');
                 const entries = [];
-                const approversEntries = [];
-                const batchSize = 100; // Number of lines to fetch at once
-                let done = false;
-                cds.tx(req).run(DELETE(Invoice));
+                const resp = await c4re.post(`/dev/fetch-invoice?invoice_no=${req.data.invoice_no}`);
+                const space = resp.body;
+                await cds.tx(req).run(DELETE(InvoiceObj));
+                // const promises = spaces.map(async (space) => {
+                entries.push({
+                    adjustment: `${space.adjustment || 'NA'}`,
+                    amount: `${space.amount || 'NA'}`,
+                    app_comment: `${space.app_comment || 'NA'}`,
+                    approver_comments: `${space.approver_comments || 'NA'}`,
+                    approver_id: `${space.approver_id || 'NA'}`,
+                    approvers: `${space.approvers  || 'NA'}`,
+                    baseline_date: `${space.baseline_date || 'NA'}`,
+                    business_area: `${space.business_area || 'NA'}`,
+                    cgst_tot_amt: `${space.cgst_tot_amt || 'NA'}`,
+                    company_code: `${space.company_code || 'NA'}`,
+                    cost_center: `${space.cost_center || 'NA'}`,
+                    country: `${space.country || 'NA'}`,
+                    currency: `${space.currency || 'NA'}`,
+                    department_id: `${space.department_id || 'NA'}`,
+                    department_name: `${space.department_name || 'NA'}`,
+                    discount_per: `${space.discount_per || 'NA'}`,
+                    doc_type_desc: `${space.doc_type_desc || 'NA'}`,
+                    document_type: `${space.document_type || 'NA'}`,
+                    from_supplier: `${space.from_supplier || 'NA'}`,
+                    gl_account: `${space.gl_account || 'NA'}`,
+                    gstin: `${space.gstin || 'NA'}`,
+                    igst_tot_amt: `${space.igst_tot_amt || 'NA'}`,
+                    in_status: `${space.in_status || 'NA'}`,
+                    internal_order: `${space.internal_order || 'NA'}`,
+                    invoice_date: `${space.invoice_date || 'NA'}`,
+                    invoice_no: `${space.invoice_no || 'NA'}`,
+                    irn: `${space.irn || 'NA'}`,
+                    is_igst: `${space.is_igst || 'NA'}`,
+                    modified_date: `${space.modified_date || 'NA'}`,
+                    npo: `${space.npo || 'NA'}`,
+                    payment_method: `${space.payment_method || 'NA'}`,
+                    payment_terms: `${space.payment_terms || 'NA'}`,
+                    posting_date: `${space.posting_date || 'NA'}`,
+                    ref_po_num: `${space.ref_po_num || 'NA'}`,
+                    sap_invoice_no: `${space.sap_invoice_no || 'NA'}`,
+                    sgst_tot_amt: `${space.sgst_tot_amt || 'NA'}`,
+                    supplier_comments: `${space.supplier_comments || 'NA'}`,
+                    supplier_id: `${space.supplier_id || 'NA'}`,
+                    supplier_name: `${space.supplier_name || 'NA'}`,
+                    tax_per: `${space.tax_per || 'NA'}`,
+                    taxable_amount: `${space.taxable_amount || 'NA'}`,
+                    tcs: `${space.tcs || 'NA'}`,
+                    tds_per: `${space.tds_per || 'NA'}`,
+                    tds_tot_amt: `${space.tds_tot_amt || 'NA'}`,
+                    total_discount_amount: `${space.total_discount_amount || 'NA'}`,
+                    user_invoice_id: `${space.user_invoice_id || 'NA'}`,
+                    file_link: `${space.files[0]?.file_link || 'NA'}`,
+                })
+                // })
+                await cds.tx(req).run(INSERT.into(InvoiceObj).entries(entries));
+                // await Promise.all(promises);
 
-                // while (!done) {
-                const resp = await c4re.post(`/dev/dia-analytics?pageno=${pgnum}&nooflines=${batchSize}`);
-                const spaces = resp.body.records;
+                console.log();
 
-                // if (spaces.length === 0) {
-                //     done = true; // No more data to fetch
-                // }
+                return req;
+            }
+            else {
+                if (firstRead) {
+                    let pgnum = 1;
+                    const entries = [];
+                    const approversEntries = [];
+                    const batchSize = 100; // Number of lines to fetch at once
+                    let done = false;
+                    cds.tx(req).run(DELETE(Invoice));
 
-                const promises = spaces.map(async (space) => {
-                    // Process each space in parallel
-                    // ...
-                    let inv = space.invoice_no;
-                    const resp1 = await c4re.post(`/dev/fetch-invoice?invoice_no=${inv}`);
-                    let entry_date = space.entry_date + ' ' + space.entry_time;
-                    let end_date = space.end_date + ' ' + space.end_time;
-                    const entriesdemo = {
-                        amount: `${space.amount || '0'} ${space.currency}`,
-                        user_processing: `${space.user_processing}`,
-                        amount_overdue: `${space.amount_overdue || 'NA'}`,
-                        company_code: `${space.company_code || 'NA'}`,
-                        currency: `${space.currency || 'NA'}`,
-                        days_overdue: `${space.days_overdue || 'NA'}`,
-                        document_status: `${space.document_status || 'NA'}`,
-                        document_type: `${space.document_type || 'NA'}`,
-                        due_date: `${space.due_date}`,
-                        end_date: `${space.end_date || 'NA'} ${space.end_time || 'NA'}`,
-                        end_time: `${space.end_time || 'NA'}`,
-                        entry_date: `${space.entry_date || 'NA'} ${space.entry_time || 'NA'}`,
-                        entry_time: `${space.entry_time || 'NA'}`,
-                        invoice_date: `${space.invoice_date || 'NA'}`,
-                        invoice_no: Number(space.invoice_no),
-                        npo_flag: `${space.npo_flag || 'NA'}`,
-                        number_of_approvers: `${space.number_of_approvers || 'NA'}`,
-                        payment_status: `${space.payment_status || 'NA'}`,
-                        payment_terms: `${space.payment_terms + ' Days' || 'NA'}`,
-                        process_duration: `${getTimeDifferenceFormatted(entry_date, end_date) || 'In Processing'}`,
-                        reason_text: `${space.reason_text || 'NA'}`,
-                        ref_po_num: `${space.ref_po_num || 'NA'}`,
-                        update_date: `${space.update_date || 'NA'}`,
-                        update_time: `${space.update_time || 'NA'}`,
-                        vendor_name: `${space.vendor_name || 'NA'}`,
-                        vendor_no: `${space.vendor_no || 'NA'}`,
-                        adjustment: `${resp1.body.adjustment || 'NA'}`,
-                        app_comment: `${resp1.body.app_comment || 'NA'}`,
-                        approver_comments: `${resp1.body.approver_comments || 'NA'}`,
-                        approver_id: `${resp1.body.approver_id || 'NA'}`,
-                        baseline_date: `${resp1.body.baseline_date || 'NA'}`,
-                        business_area: `${resp1.body.business_area || 'NA'}`,
-                        cgst_tot_amt: `${resp1.body.cgst_tot_amt || 'NA'}`,
-                        cost_center: `${resp1.body.cost_center || 'NA'}`,
-                        country: `${resp1.body.country || 'NA'}`,
-                        department_id: `${resp1.body.department_id || 'NA'}`,
-                        department_name: `${resp1.body.department_name || 'NA'}`,
-                        discount_per: `${resp1.body.discount_per || 'NA'}`,
-                        doc_type_desc: `${resp1.body.doc_type_desc || 'NA'}`,
-                        from_supplier: `${resp1.body.from_supplier || 'NA'}`,
-                        gl_account: `${resp1.body.gl_account || 'NA'}`,
-                        gstin: `${resp1.body.gstin || 'NA'}`,
-                        igst_tot_amt: `${resp1.body.igst_tot_amt || 'NA'}`,
-                        in_status: `${resp1.body.in_status || 'NA'}`,
-                        internal_order: `${resp1.body.internal_order || 'NA'}`,
-                        irn: `${resp1.body.irn || 'NA'}`,
-                        is_igst: `${resp1.body.is_igst || 'NA'}`,
-                        modified_date: `${resp1.body.modified_date || 'NA'}`,
-                        npo: `${resp1.body.npo || 'NA'}`,
-                        payment_method: `${resp1.body.payment_method || 'NA'}`,
-                        posting_date: `${resp1.body.posting_date || 'NA'}`,
-                        sap_invoice_no: `${resp1.body.sap_invoice_no || 'NA'}`,
-                        sgst_tot_amt: `${resp1.body.sgst_tot_amt || 'NA'}`,
-                        supplier_comments: `${resp1.body.supplier_comments || 'NA'}`,
-                        supplier_id: `${resp1.body.supplier_id || 'NA'}`,
-                        supplier_name: `${resp1.body.supplier_name || 'NA'}`,
-                        tax_per: `${resp1.body.tax_per || 'NA'}`,
-                        taxable_amount: `${resp1.body.taxable_amount || 'NA'}`,
-                        tcs: `${resp1.body.tcs || 'NA'}`,
-                        tds_per: `${resp1.body.tds_per || 'NA'}`,
-                        tds_tot_amt: `${resp1.body.tds_tot_amt || 'NA'}`,
-                        total_discount_amount: `${resp1.body.total_discount_amount || 'NA'}`,
-                        user_invoice_id: `${resp1.body.user_invoice_id || 'NA'}`,
-                        file_link: `${resp1.body.files[0]?.file_link || 'NA'}`,
+                    while (!done) {
+                        const resp = await c4re.post(`/dev/dia-analytics?pageno=${pgnum}&nooflines=${batchSize}`);
+                        const spaces = resp.body.records;
+
+                        if (spaces.length === 0 || pgnum == 9) {
+                            done = true; // No more data to fetch
+                        }
+
+                        const promises = spaces.map(async (space) => {
+                            // Process each space in parallel
+                            // ...
+                            let inv = space.invoice_no;
+                            // const resp1 = await c4re.post(`/dev/fetch-invoice?invoice_no=${inv}`);
+                            let entry_date = space.entry_date + ' ' + space.entry_time;
+                            let end_date = space.end_date + ' ' + space.end_time;
+                            const entriesdemo = {
+                                amount: `${space.amount || '0'} ${space.currency}`,
+                                user_processing: `${space.user_processing}`,
+                                amount_overdue: `${space.amount_overdue || 'NA'}`,
+                                company_code: `${space.company_code || 'NA'}`,
+                                currency: `${space.currency || 'NA'}`,
+                                days_overdue: `${space.days_overdue || 'NA'}`,
+                                document_status: `${space.document_status || 'NA'}`,
+                                document_type: `${space.document_type || 'NA'}`,
+                                due_date: `${space.due_date}`,
+                                end_date: `${space.end_date || 'NA'} ${space.end_time || 'NA'}`,
+                                end_time: `${space.end_time || 'NA'}`,
+                                entry_date: `${space.entry_date || 'NA'} ${space.entry_time || 'NA'}`,
+                                entry_time: `${space.entry_time || 'NA'}`,
+                                invoice_date: `${space.invoice_date || 'NA'}`,
+                                invoice_no: Number(space.invoice_no),
+                                npo_flag: `${space.npo_flag || 'NA'}`,
+                                number_of_approvers: `${space.number_of_approvers || 'NA'}`,
+                                payment_status: `${space.payment_status || 'NA'}`,
+                                payment_terms: `${space.payment_terms + ' Days' || 'NA'}`,
+                                process_duration: `${getTimeDifferenceFormatted(entry_date, end_date) || 'In Processing'}`,
+                                reason_text: `${space.reason_text || 'NA'}`,
+                                ref_po_num: `${space.ref_po_num || 'NA'}`,
+                                update_date: `${space.update_date || 'NA'}`,
+                                update_time: `${space.update_time || 'NA'}`,
+                                vendor_name: `${space.vendor_name || 'NA'}`,
+                                vendor_no: `${space.vendor_no || 'NA'}`,
+                                // adjustment: `${resp1.body.adjustment || 'NA'}`,
+                                // app_comment: `${resp1.body.app_comment || 'NA'}`,
+                                // approver_comments: `${resp1.body.approver_comments || 'NA'}`,
+                                // approver_id: `${resp1.body.approver_id || 'NA'}`,
+                                // baseline_date: `${resp1.body.baseline_date || 'NA'}`,
+                                // business_area: `${resp1.body.business_area || 'NA'}`,
+                                // cgst_tot_amt: `${resp1.body.cgst_tot_amt || 'NA'}`,
+                                // cost_center: `${resp1.body.cost_center || 'NA'}`,
+                                // country: `${resp1.body.country || 'NA'}`,
+                                // department_id: `${resp1.body.department_id || 'NA'}`,
+                                // department_name: `${resp1.body.department_name || 'NA'}`,
+                                // discount_per: `${resp1.body.discount_per || 'NA'}`,
+                                // doc_type_desc: `${resp1.body.doc_type_desc || 'NA'}`,
+                                // from_supplier: `${resp1.body.from_supplier || 'NA'}`,
+                                // gl_account: `${resp1.body.gl_account || 'NA'}`,
+                                // gstin: `${resp1.body.gstin || 'NA'}`,
+                                // igst_tot_amt: `${resp1.body.igst_tot_amt || 'NA'}`,
+                                // in_status: `${resp1.body.in_status || 'NA'}`,
+                                // internal_order: `${resp1.body.internal_order || 'NA'}`,
+                                // irn: `${resp1.body.irn || 'NA'}`,
+                                // is_igst: `${resp1.body.is_igst || 'NA'}`,
+                                // modified_date: `${resp1.body.modified_date || 'NA'}`,
+                                // npo: `${resp1.body.npo || 'NA'}`,
+                                // payment_method: `${resp1.body.payment_method || 'NA'}`,
+                                // posting_date: `${resp1.body.posting_date || 'NA'}`,
+                                // sap_invoice_no: `${resp1.body.sap_invoice_no || 'NA'}`,
+                                // sgst_tot_amt: `${resp1.body.sgst_tot_amt || 'NA'}`,
+                                // supplier_comments: `${resp1.body.supplier_comments || 'NA'}`,
+                                // supplier_id: `${resp1.body.supplier_id || 'NA'}`,
+                                // supplier_name: `${resp1.body.supplier_name || 'NA'}`,
+                                // tax_per: `${resp1.body.tax_per || 'NA'}`,
+                                // taxable_amount: `${resp1.body.taxable_amount || 'NA'}`,
+                                // tcs: `${resp1.body.tcs || 'NA'}`,
+                                // tds_per: `${resp1.body.tds_per || 'NA'}`,
+                                // tds_tot_amt: `${resp1.body.tds_tot_amt || 'NA'}`,
+                                // total_discount_amount: `${resp1.body.total_discount_amount || 'NA'}`,
+                                // user_invoice_id: `${resp1.body.user_invoice_id || 'NA'}`,
+                                // file_link: `${resp1.body.files[0]?.file_link || 'NA'}`,
 
 
 
-                    };
-                    entriesdemo.file_link = entriesdemo.file_link.replace('https://l8m6p8a76e.execute-api.eu-central-1.amazonaws.com', 'https://elipo_backend-shy-echidna-yp.cfapps.us20.hana.ondemand.com');
-                    // entriesdemo.file_link = `https://www.africau.edu/images/default/sample.pdf`;
+                            };
+                            // entriesdemo.file_link = entriesdemo.file_link.replace('https://l8m6p8a76e.execute-api.eu-central-1.amazonaws.com', 'https://elipo_backend-shy-echidna-yp.cfapps.us20.hana.ondemand.com');
+                            // entriesdemo.file_link = `https://www.africau.edu/images/default/sample.pdf`;
 
-                    // console.log(fileLink);
+                            // console.log(fileLink);
 
 
-                    if (space.days_to_due == 'Paid') {
-                        entriesdemo.days_to_due = `${space.days_to_due || 'NA'}`;
-                        // entriesdemo.dtd = 3;
-                    }
-                    else if (!space.days_to_due) {
-                        entriesdemo.days_to_due = 'NA';
-                    }
-                    else {
-                        entriesdemo.days_to_due = `${space.days_to_due + 'Days' || 'NA'}`;
-                        // entriesdemo.dtd = 1;
-                    }
+                            if (space.days_to_due == 'Paid') {
+                                entriesdemo.days_to_due = `${space.days_to_due || 'NA'}`;
+                                // entriesdemo.dtd = 3;
+                            }
+                            else if (!space.days_to_due) {
+                                entriesdemo.days_to_due = 'NA';
+                            }
+                            else {
+                                entriesdemo.days_to_due = `${space.days_to_due + 'Days' || 'NA'}`;
+                                // entriesdemo.dtd = 1;
+                            }
 
-                    if (entriesdemo.days_to_due.startsWith('-')) {
-                        entriesdemo.ovrdueflag = 1;
-                    }
-                    else if (entriesdemo.days_to_due == 'Paid') {
-                        entriesdemo.ovrdueflag = 3;
-                    }
-                    else {
-                        entriesdemo.ovrdueflag = 2;
-                    }
-                    // console.log(typeof(entriesdemo.ovrdueflag));
+                            if (entriesdemo.days_to_due.startsWith('-')) {
+                                entriesdemo.ovrdueflag = 1;
+                            }
+                            else if (entriesdemo.days_to_due == 'Paid') {
+                                entriesdemo.ovrdueflag = 3;
+                            }
+                            else {
+                                entriesdemo.ovrdueflag = 2;
+                            }
+                            // console.log(typeof(entriesdemo.ovrdueflag));
 
-                    entries.push(entriesdemo);
+                            entries.push(entriesdemo);
 
-                    space.approvers.forEach(approver => {
-                        approversEntries.push({
-                            approver: `${approver.approver || 'NA'}`,
-                            isapproved: `${approver.isapproved || 'NA'}`,
-                            isgroup: `${approver.isgroup || 'NA'}`,
-                            level: `${approver.level || 'NA'}`,
-                            name: `${approver.name || 'NA'}`,
-                            invoice_no: Number(space.invoice_no),
-                            // toInvoice:space.invoice_no
+                            space.approvers.forEach(approver => {
+                                approversEntries.push({
+                                    approver: `${approver.approver || 'NA'}`,
+                                    isapproved: `${approver.isapproved || 'NA'}`,
+                                    isgroup: `${approver.isgroup || 'NA'}`,
+                                    level: `${approver.level || 'NA'}`,
+                                    name: `${approver.name || 'NA'}`,
+                                    invoice_no: Number(space.invoice_no),
+                                    // toInvoice:space.invoice_no
+                                });
+                            });
                         });
-                    });
-                });
 
-                await Promise.all(promises);
-                //     pgnum++;
-                // }
+                        await Promise.all(promises);
+                        pgnum++;
+                    }
 
-                // Batch insert data into the database
-                await cds.tx(req).run(INSERT.into(Invoice).entries(entries));
-                await cds.tx(req).run(INSERT.into(Approvers).entries(approversEntries));
+                    // Batch insert data into the database
+                    await cds.tx(req).run(INSERT.into(Invoice).entries(entries));
+                    await cds.tx(req).run(INSERT.into(Approvers).entries(approversEntries));
 
-                firstRead = false;
+                    firstRead = false;
+                }
             }
         } catch (err) {
             req.error(500, err.message);

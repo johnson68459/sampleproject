@@ -18,6 +18,58 @@ entity MasterCompanyCode {
     description : String;
 }
 
+entity InvoiceObj {
+        adjustment            : String;
+        amount                : String;
+        app_comment           : String;
+        approver_comments     : String;
+        approver_id           : String;
+        approvers             : String;
+        baseline_date         : String;
+        business_area         : String;
+        cgst_tot_amt          : String;
+        company_code          : String;
+        cost_center           : String;
+        country               : String;
+        currency              : String;
+        department_id         : String;
+        department_name       : String;
+        discount_per          : String;
+        doc_type_desc         : String;
+        document_type         : String;
+        from_supplier         : String;
+        gl_account            : String;
+        gstin                 : String;
+        igst_tot_amt          : String;
+        in_status             : String;
+        internal_order        : String;
+        invoice_date          : String;
+    key invoice_no            : Integer;
+        irn                   : String;
+        is_igst               : String;
+        modified_date         : String;
+        npo                   : String;
+        payment_method        : String;
+        payment_terms         : String;
+        posting_date          : String;
+        ref_po_num            : String;
+        sap_invoice_no        : String;
+        sgst_tot_amt          : String;
+        supplier_comments     : String;
+        supplier_id           : String;
+        supplier_name         : String;
+        tax_per               : String;
+        taxable_amount        : String;
+        tcs                   : String;
+        tds_per               : String;
+        tds_tot_amt           : String;
+        total_discount_amount : String;
+        user_invoice_id       : String;
+        file_link             : LargeString;
+        parent                : Association to Invoice;
+
+}
+
 
 entity Invoice {
     key invoice_no            : Integer; // Assuming "invoice_no" is unique identifier
@@ -48,45 +100,47 @@ entity Invoice {
         user_processing       : String;
         vendor_name           : String;
         vendor_no             : String;
-        adjustment            : String;
-        app_comment           : String;
-        approver_comments     : String;
-        approver_id           : String;
-        baseline_date         : String;
-        business_area         : String;
-        cgst_tot_amt          : String;
-        cost_center           : String;
-        country               : String;
-        department_id         : String;
-        department_name       : String;
-        discount_per          : String;
-        doc_type_desc         : String;
-        from_supplier         : String;
-        gl_account            : String;
-        gstin                 : String;
-        igst_tot_amt          : String;
-        in_status             : String;
-        internal_order        : String;
-        irn                   : String;
-        is_igst               : String;
-        modified_date         : String;
-        npo                   : String;
-        payment_method        : String;
-        posting_date          : String;
-        sap_invoice_no        : String;
-        sgst_tot_amt          : String;
-        supplier_comments     : String;
-        supplier_id           : String;
-        supplier_name         : String;
-        tax_per               : String;
-        taxable_amount        : String;
-        tcs                   : String;
-        tds_per               : String;
-        tds_tot_amt           : String;
-        total_discount_amount : String;
-        user_invoice_id       : String;
-        file_link             : LargeString;
+        // adjustment            : String;
+        // app_comment           : String;
+        // approver_comments     : String;
+        // approver_id           : String;
+        // baseline_date         : String;
+        // business_area         : String;
+        // cgst_tot_amt          : String;
+        // cost_center           : String;
+        // country               : String;
+        // department_id         : String;
+        // department_name       : String;
+        // discount_per          : String;
+        // doc_type_desc         : String;
+        // from_supplier         : String;
+        // gl_account            : String;
+        // gstin                 : String;
+        // igst_tot_amt          : String;
+        // in_status             : String;
+        // internal_order        : String;
+        // irn                   : String;
+        // is_igst               : String;
+        // modified_date         : String;
+        // npo                   : String;
+        // payment_method        : String;
+        // posting_date          : String;
+        // sap_invoice_no        : String;
+        // sgst_tot_amt          : String;
+        // supplier_comments     : String;
+        // supplier_id           : String;
+        // supplier_name         : String;
+        // tax_per               : String;
+        // taxable_amount        : String;
+        // tcs                   : String;
+        // tds_per               : String;
+        // tds_tot_amt           : String;
+        // total_discount_amount : String;
+        // user_invoice_id       : String;
+        // file_link             : LargeString;
         ovrdueflag            : Integer;
+        invoice_obj           : Association to one InvoiceObj
+                                    on invoice_obj.invoice_no = invoice_no;
         invoice_child_items   : Composition of many Invoice_child_items
                                     on invoice_child_items.invoice_no = invoice_no;
         approvers             : Composition of many Approvers

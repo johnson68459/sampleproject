@@ -459,11 +459,12 @@ service CatalogService {
 
     function getPdfUrl(invoice_no : Integer) returns LargeString;
     entity MasterCompanyCode                     as projection on my.MasterCompanyCode;
+    entity InvoiceObj                            as projection on my.InvoiceObj;
 
     @UI.DeleteHidden
     entity Invoice                               as projection on my.Invoice actions {
-        action showpdf1();
-    };
+                                                        action showpdf1();
+                                                    } ;
 
     @UI.DeleteHidden
     entity Invoice_child_items                   as projection on my.Invoice_child_items;
@@ -542,7 +543,7 @@ service CatalogService {
     @UI.DeleteHidden
     entity MyTask                                as projection on my.MyTask;
 
-    entity SearchOverview as projection on my.SearchOverview;
+    entity SearchOverview                        as projection on my.SearchOverview;
 
 
     //Assignment Rules
