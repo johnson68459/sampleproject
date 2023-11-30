@@ -132,6 +132,9 @@
                                     "tableSettings": {
                                         "type": "GridTable"
                                     }
+                                },
+                                "@com.sap.vocabularies.UI.v1.SelectionFields": {
+                                    "showClearButton": true
                                 }
                             }
                         }

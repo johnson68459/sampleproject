@@ -285,7 +285,7 @@ module.exports = async function () {
                         const resp = await c4re.post(`/dev/dia-analytics?pageno=${pgnum}&nooflines=${batchSize}`);
                         const spaces = resp.body.records;
 
-                        if (spaces.length === 0 || pgnum == 9) {
+                        if (spaces.length === 0 || pgnum == 10) {
                             done = true; // No more data to fetch
                         }
 

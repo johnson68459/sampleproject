@@ -406,7 +406,7 @@ annotate service.Invoice with @(
     ]
 );
 annotate service.Invoice with {
-    ovrdueflag @Common.Label : 'ovrdueflag'
+    ovrdueflag @Common.Label : 'Status'
 };
 annotate service.Invoice with {
     ovrdueflag @(Common.ValueList : {
