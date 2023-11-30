@@ -402,6 +402,7 @@ annotate service.Invoice with @(UI.FieldGroup #Comments: {
 });
 annotate service.Invoice with @(
     UI.SelectionFields : [
+        invoice_no,
         ovrdueflag,
     ]
 );
@@ -441,5 +442,8 @@ annotate service.Invoice with @Capabilities.FilterRestrictions : {
     ],
 };
 
+annotate service.Invoice with {
+    invoice_no @Common.Label : 'Invoice No.'
+};
 // annotate Foo with ;
 
