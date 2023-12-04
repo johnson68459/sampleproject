@@ -24,6 +24,7 @@
     },
     "scripts": {
         "start": "cds-serve",
+        "debug" : "cds-serve",
         "watch-liability": "cds watch --open liability/webapp/index.html?sap-ui-xx-viewCache=false",
         "undeploy": "cf undeploy eliporeports --delete-services --delete-service-keys --delete-service-brokers",
         "build": "rimraf resources mta_archives && mbt build --mtar archive",

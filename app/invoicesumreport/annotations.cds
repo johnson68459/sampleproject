@@ -138,12 +138,12 @@ annotate service.Invoice with @(
             },
             {
                 $Type: 'UI.DataField',
-                Value: invoice_obj.doc_type_desc,
+                Value: invoice_obj.document_type,
                 Label: 'Document Type'
             },
             {
                 $Type: 'UI.DataField',
-                Value: invoice_obj.ref_po_num,
+                Value: invoice_obj.user_invoice_id,
                 Label: 'Ref. Invoice No.'
             },
             {
@@ -155,6 +155,11 @@ annotate service.Invoice with @(
                 $Type: 'UI.DataField',
                 Value: invoice_obj.posting_date,
                 Label: 'Posting Date'
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: invoice_obj.ref_po_num,
+                Label: 'Reference PO Number'
             },
             {
                 $Type: 'UI.DataField',
@@ -248,6 +253,11 @@ annotate service.Invoice with @(
             },
             {
                 $Type: 'UI.DataField',
+                Value: invoice_obj.tcs,
+                Label: 'TCS'
+            },
+            {
+                $Type: 'UI.DataField',
                 Value: invoice_obj.internal_order,
                 Label: 'Internal Order'
             }
@@ -262,14 +272,39 @@ annotate service.Invoice with @(
             Target: '@UI.FieldGroup#GeneratedGroup1',
         },
         {
-            $Type : 'UI.ReferenceFacet',
-            ID : 'Items',
-            Label : 'Items',
-            Target: 'invoice_child_items/@UI.LineItem#Items'
-        }
+            $Type : 'UI.CollectionFacet',
+            ID    : 'ITEMSSECTION',
+            Facets: [
+                {
+                    $Type : 'UI.ReferenceFacet',
+                    ID    : 'ITEMS',
+                    Target: 'invoice_child_items/@UI.LineItem#Items',
+                },
+                {
+                    $Type : 'UI.ReferenceFacet',
+                    ID    : 'Comments',
+                    Target: '@UI.FieldGroup#Comments',
+                },
+            ],
+        },
+        // {
+        //     $Type : 'UI.ReferenceFacet',
+        //     ID : 'Items',
+        //     Label : 'Items',
+        //     Target: 'invoice_child_items/@UI.LineItem#Items'
+        // }
     ]
 );
 
+annotate service.Invoice with @(UI.FieldGroup #Comments: {
+    $Type: 'UI.FieldGroupType',
+    Data : [
+        {
+            $Type : 'UI.DataField',
+            Value : invoice_obj.supplier_comments,
+            Label : 'Comments',
+        },],
+});
 //////////////gst percentage
 annotate service.Invoice_child_items with @(UI.FieldGroup #gst_per: {Data: [
     {
@@ -392,14 +427,14 @@ annotate service.Invoice_child_items with @(UI.HeaderInfo: {
     TypeNamePlural: 'Items',
 });
 
-annotate service.Invoice with @(UI.FieldGroup #Comments: {
-    $Type: 'UI.FieldGroupType',
-    Data : [{
-        $Type: 'UI.DataField',
-        Value: company_code,
-        Label: 'Comments',
-    }, ],
-});
+// annotate service.Invoice with @(UI.FieldGroup #Comments: {
+//     $Type: 'UI.FieldGroupType',
+//     Data : [{
+//         $Type: 'UI.DataField',
+//         Value: company_code,
+//         Label: 'Comments',
+//     }, ],
+// });
 annotate service.Invoice with @(
     UI.SelectionFields : [
         invoice_no,

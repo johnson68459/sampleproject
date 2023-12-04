@@ -396,11 +396,23 @@ module.exports = async function () {
                 const entries = [];
                 const resp = await c4re.post(`/dev/fetch-invoice?invoice_no=${req.data.invoice_no}`);
                 const space = resp.body;
+                let parentamt=0;
+                let parenttamt=0;
                 await cds.tx(req).run(DELETE(InvoiceObj));
+
+
+                var doctype1 = await SELECT.from(Invoice).where({invoice_no:req.data.invoice_no});
+                var doctype = await SELECT.one`document_type`.from(Invoice).where({invoice_no:req.data.invoice_no});
+                space.items.forEach(space1 => {
+                    parentamt = parentamt + Number((space1.quantity * space1.amt_per_unit) + (space1.quantity * space1.amt_per_unit) * (space1.gst_per / 100));
+                    parenttamt += Number(space1.quantity * space1.amt_per_unit)
+                })
+                // var amt = await SELECT.from(Invoice_child_items).where({invoice_no:req.data.invoice_no});
+                // var amt1 = await SELECT`sum(taxable_amount)`.from(Invoice_child_items).where({invoice_no:req.data.invoice_no});
                 // const promises = spaces.map(async (space) => {
                 entries.push({
                     adjustment: `${space.adjustment || 'NA'}`,
-                    amount: `${space.amount || 'NA'}`,
+                    amount: `${parenttamt || 'NA'}`,
                     app_comment: `${space.app_comment || 'NA'}`,
                     approver_comments: `${space.approver_comments || 'NA'}`,
                     approver_id: `${space.approver_id || 'NA'}`,
@@ -415,8 +427,8 @@ module.exports = async function () {
                     department_id: `${space.department_id || 'NA'}`,
                     department_name: `${space.department_name || 'NA'}`,
                     discount_per: `${space.discount_per || 'NA'}`,
-                    doc_type_desc: `${space.doc_type_desc || 'NA'}`,
-                    document_type: `${space.document_type || 'NA'}`,
+                    doc_type_desc: `${doctype || 'Invoice'}`,
+                    document_type: `${doctype.document_type || 'NA'}`,
                     from_supplier: `${space.from_supplier || 'NA'}`,
                     gl_account: `${space.gl_account || 'NA'}`,
                     gstin: `${space.gstin || 'NA'}`,
@@ -439,7 +451,7 @@ module.exports = async function () {
                     supplier_id: `${space.supplier_id || 'NA'}`,
                     supplier_name: `${space.supplier_name || 'NA'}`,
                     tax_per: `${space.tax_per || 'NA'}`,
-                    taxable_amount: `${space.taxable_amount || 'NA'}`,
+                    taxable_amount: `${parentamt || 'NA'}`,
                     tcs: `${space.tcs || 'NA'}`,
                     tds_per: `${space.tds_per || 'NA'}`,
                     tds_tot_amt: `${space.tds_tot_amt || 'NA'}`,
@@ -465,7 +477,7 @@ module.exports = async function () {
                         const resp = await c4re.post(`/dev/dia-analytics?pageno=${pgnum}&nooflines=${batchSize}`);
                         const spaces = resp.body.records;
 
-                        if (spaces.length === 0 || pgnum === 15) {
+                        if (spaces.length === 0 || pgnum === 2) {
                             break;
                         }
 
@@ -578,6 +590,7 @@ module.exports = async function () {
         }
     });
 
+    
 
 
 
@@ -621,11 +634,13 @@ module.exports = async function () {
             if (firstRead) {
 
                 let inv = req.params[0].invoice_no;
+                var i =0;
                 const items = [];
                 const resp1 = await c4re.post(`/dev/fetch-invoice?invoice_no=${inv}`);
                 console.log(inv);
                 cds.tx(req).run(DELETE(Invoice_child_items));
-
+                let parentamt=0;
+                let parenttamt=0;
                 const space = resp1.body;
                 space.items.forEach(space => {
                     items.push({
@@ -697,9 +712,19 @@ module.exports = async function () {
 
 
                     })
-                })
-                await cds.tx(req).run(INSERT.into(Invoice_child_items).entries(items));
 
+                    parentamt=parentamt+Number(items[i].total_amt_item);
+                    console.log(items[i].total_amt_item);
+                    parenttamt=parenttamt+Number(items[i].taxable_amount);
+                    console.log(parentamt);
+
+                    i++;
+                })
+
+                await cds.tx(req).run(INSERT.into(Invoice_child_items).entries(items));
+                // await cds.update(InvoiceObj).set({taxable_amount:parentamt,amount:parenttamt}).where({invoice_no:req.params[0].invoice_no});
+
+                // var demo1 = await SELECT.from(InvoiceObj);
                 firstRead = false;
             }
             return req;
