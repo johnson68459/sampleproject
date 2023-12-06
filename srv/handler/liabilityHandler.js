@@ -42,6 +42,9 @@ module.exports = async function () {
                 let cnt = 1;
 
                 spaces.forEach(space => {
+                  if (space.vendor_no == '100595') {
+                    console.log('demo');
+                  }
                     entries.push({
                         // id:cnt,
                         // vendor_no: space.vendor_no,
@@ -73,7 +76,7 @@ module.exports = async function () {
                         "total_no_of_invoice_paid": `${space.total_no_of_invoice_paid}`,
                         "total_no_of_paid_invoice": `${space.total_no_of_paid_invoice}`,
                         "total_over_due_amount": `${space.total_over_due_amount}`,
-                        "total_paid_amount": `${space.total_paid_amount}`,
+                        "total_paid_amount": `${formatNumber(space.total_paid_amount)}`,
                         "vendor_name": `${space.vendor_name}`
 
 

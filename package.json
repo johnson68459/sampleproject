@@ -56,5 +56,12 @@
         "app/invoicesumreport",
         "app/assignmentruleselipo",
         "app/demodeploymentrules"
-    ]
+    ],
+    "cds": {
+        "query":{
+            "limit":{
+                "max":10
+            }
+        }
+    }
 }

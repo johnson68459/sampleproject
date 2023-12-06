@@ -34,9 +34,9 @@ annotate service.LiabilityBasedOnAmount_1 with {
 };
 
 
-// annotate service.LiabilityBasedOnAmount_1 with
-// @Capabilities.FilterRestrictions: {
-//     FilterExpressionRestrictions: [{
-//     Property          : years,
-//     AllowedExpressions: 'SingleValue'
-// }]};
+annotate service.LiabilityBasedOnAmount_1 with
+@Capabilities.FilterRestrictions: {
+    FilterExpressionRestrictions: [{
+    Property          : years,
+    AllowedExpressions: 'SingleValue'
+}]};

@@ -1,0 +1,1 @@
+sap.ui.define(["sap/fe/core/AppComponent"],function(e){"use strict";return e.extend("re.invoicesumreport.Component",{metadata:{manifest:"json"}})});
