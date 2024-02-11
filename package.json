@@ -60,7 +60,7 @@
     "cds": {
         "query":{
             "limit":{
-                "max":10
+                "max":5
             }
         }
     }
